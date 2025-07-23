@@ -5,9 +5,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:animated_transitions/transition_animation.dart';
+import 'package:animated_transitions/transition.dart';
 
-class ExpandingCirclesTransition extends TransitionAnimation {
+class ExpandingCirclesTransition extends Transition {
   final Color? color;
   final int numberOfCircles;
   final List<Color>? colors;
@@ -25,7 +25,7 @@ class ExpandingCirclesTransition extends TransitionAnimation {
 }
 
 class _ExpandingCirclesTransitionState
-    extends TransitionAnimationState<ExpandingCirclesTransition>
+    extends TransitionState<ExpandingCirclesTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;

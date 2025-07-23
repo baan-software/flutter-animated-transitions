@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'transition_controller.dart';
 
-abstract class TransitionAnimation extends StatefulWidget {
+abstract class Transition extends StatefulWidget {
   TransitionController? controller;
 
-  TransitionAnimation({super.key});
+  Transition({super.key});
 
   @override
-  State<TransitionAnimation> createState();
+  State<Transition> createState();
 
   void onAnimationComplete() {
     controller?.onAnimationComplete.call();
@@ -20,5 +20,5 @@ abstract class TransitionAnimation extends StatefulWidget {
   }
 }
 
-abstract class TransitionAnimationState<T extends TransitionAnimation>
+abstract class TransitionState<T extends Transition>
     extends State<T> {}

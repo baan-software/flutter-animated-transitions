@@ -6,6 +6,7 @@ export 'transitions/wave_bars_transition.dart';
 
 // Export main classes
 export 'enums.dart';
-export 'transition_animation.dart';
+export 'transition.dart';
 export 'transition_controller.dart';
 export 'transition_page_route.dart'; 
+export 'transition_wrapper.dart';

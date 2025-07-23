@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'transition_animation.dart';
+import 'transition.dart';
 import 'transition_controller.dart';
 
 class TransitionPageRoute extends PageRouteBuilder {
-  final TransitionAnimation transitionAnimation;
+  final Transition transitionAnimation;
 
   TransitionPageRoute({
     required WidgetBuilder builder,
@@ -24,7 +24,7 @@ class TransitionPageRoute extends PageRouteBuilder {
 
 class _TransitionAnimator extends StatefulWidget {
   final Widget child;
-  final TransitionAnimation transitionAnimation;
+  final Transition transitionAnimation;
 
   const _TransitionAnimator({
     required this.child,

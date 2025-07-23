@@ -3,9 +3,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:animated_transitions/enums.dart';
-import 'package:animated_transitions/transition_animation.dart';
+import 'package:animated_transitions/transition.dart';
 
-class GrowingBarsTransition extends TransitionAnimation {
+class GrowingBarsTransition extends Transition {
   final TransitionDirection direction;
   final List<Color>? colors;
 
@@ -19,7 +19,7 @@ class GrowingBarsTransition extends TransitionAnimation {
 }
 
 class GrowingBarsTransitionState
-    extends TransitionAnimationState<GrowingBarsTransition>
+    extends TransitionState<GrowingBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;

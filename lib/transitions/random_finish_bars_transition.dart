@@ -4,9 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../enums.dart';
-import '../transition_animation.dart';
+import '../transition.dart';
 
-class RandomFinishBarsTransition extends TransitionAnimation {
+class RandomFinishBarsTransition extends Transition {
   final TransitionDirection direction;
   final List<Color>? colors;
 
@@ -22,7 +22,7 @@ class RandomFinishBarsTransition extends TransitionAnimation {
 }
 
 class RandomFinishBarsTransitionState
-    extends TransitionAnimationState<RandomFinishBarsTransition>
+    extends TransitionState<RandomFinishBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
