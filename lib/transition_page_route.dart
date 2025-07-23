@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition_animations/transitions/expanding_circles_transition.dart';
-import 'package:page_transition_animations/transitions/fading_circles_transition.dart';
-import 'package:page_transition_animations/transitions/growing_bars_transition.dart';
-import 'package:page_transition_animations/transitions/random_finish_bars_transition.dart';
-import 'package:page_transition_animations/transitions/wave_bars_transition.dart';
+import 'package:animated_transitions/transitions/expanding_circles_transition.dart';
+import 'package:animated_transitions/transitions/fading_circles_transition.dart';
+import 'package:animated_transitions/transitions/growing_bars_transition.dart';
+import 'package:animated_transitions/transitions/random_finish_bars_transition.dart';
+import 'package:animated_transitions/transitions/wave_bars_transition.dart';
 
 import 'transition_animation.dart';
 import 'transition_controller.dart';

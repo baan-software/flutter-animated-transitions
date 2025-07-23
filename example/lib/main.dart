@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition_animations/theme/app_theme.dart';
+import 'package:animated_transitions/theme/app_theme.dart';
 
 import 'screens/home_screen.dart';
 

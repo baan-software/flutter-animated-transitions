@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:page_transition_animations/transition_page_route.dart';
+import 'package:animated_transitions/transition_page_route.dart';
 
 import 'screen_b.dart';
 

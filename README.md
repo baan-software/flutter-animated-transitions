@@ -1,4 +1,4 @@
-# Page Transition Animations
+# Animated Transitions
 
 A Flutter package providing a collection of beautiful and smooth transitions for page navigation. Easily implement complex animations with minimal code.
 
@@ -15,7 +15,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  page_transition_animations: ^0.0.1
+  animated_transitions: ^0.0.1
 ```
 
 Then, run `flutter pub get` in your terminal.
@@ -26,7 +26,7 @@ To use the page transitions, you can wrap your page route with the `TransitionPa
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:page_transition_animations/page_transition_animations.dart';
+import 'package:animated_transitions/animated_transitions.dart';
 
 // ...
 

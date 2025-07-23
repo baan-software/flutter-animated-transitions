@@ -1,5 +1,5 @@
-name: flutter_animations_example
-description: "Demonstrates how to use the page_transition_animations package."
+name: animated_transitions_example
+description: "Demonstrates how to use the animated_transitions package."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  page_transition_animations:
+  animated_transitions:
     path: ../
 
   cupertino_icons: ^1.0.8
