@@ -1,0 +1,1 @@
+enum TransitionDirection { top, bottom, left, right } 
