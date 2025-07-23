@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/screens/home_screen.dart';
-import 'package:flutter_animations/theme/app_theme.dart';
+import 'package:page_transition_animations/theme/app_theme.dart';
+
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());

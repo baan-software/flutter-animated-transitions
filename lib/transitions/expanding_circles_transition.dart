@@ -3,21 +3,32 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/transition_animation.dart';
+
+import '../transition_animation.dart';
 
 class ExpandingCirclesTransition extends TransitionAnimation {
-  final Color color;
+  final Color? color;
   final int numberOfCircles;
   final List<Color>? colors;
 
-  ExpandingCirclesTransition({super.key, this.color = Colors.deepPurple, this.colors, this.numberOfCircles = 25});
+  const ExpandingCirclesTransition({
+    super.key,
+    required super.onAnimationComplete,
+    required super.onTransitionEnd,
+    this.color = Colors.deepPurple,
+    this.colors,
+    this.numberOfCircles = 25,
+  });
 
   @override
-  State<ExpandingCirclesTransition> createState() => _ExpandingCirclesTransitionState();
+  State<ExpandingCirclesTransition> createState() =>
+      _ExpandingCirclesTransitionState();
 }
 
-class _ExpandingCirclesTransitionState extends TransitionAnimationState<ExpandingCirclesTransition>
+class _ExpandingCirclesTransitionState
+    extends TransitionAnimationState<ExpandingCirclesTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
@@ -82,14 +93,15 @@ class _ExpandingCirclesTransitionState extends TransitionAnimationState<Expandin
 
     final maxRadius = maxDist;
 
-    _radiusAnimation = Tween<double>(begin: 0, end: maxRadius).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCirc),
-    );
+    _radiusAnimation = Tween<double>(
+      begin: 0,
+      end: maxRadius,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCirc));
 
     final List<Color> animationColors;
     final colors = widget.colors;
     if (colors == null || colors.isEmpty) {
-      animationColors = [widget.color, widget.color];
+      animationColors = [widget.color!, widget.color!];
     } else if (colors.length == 1) {
       animationColors = [colors[0], colors[0]];
     } else {
@@ -146,7 +158,7 @@ class _ExpandingCirclesTransitionState extends TransitionAnimationState<Expandin
               return CustomPaint(
                 painter: _ScatteredCirclesPainter(
                   radius: _radiusAnimation?.value ?? 0,
-                  color: _colorAnimation?.value ?? widget.color,
+                  color: _colorAnimation?.value ?? widget.color ?? Colors.black,
                   centers: _circleCenters,
                 ),
                 size: size,
@@ -180,4 +192,4 @@ class _ScatteredCirclesPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ScatteredCirclesPainter oldDelegate) => true;
-} 
+}

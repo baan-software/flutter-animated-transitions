@@ -4,5 +4,8 @@ class TransitionController {
   VoidCallback onAnimationComplete;
   VoidCallback onTransitionEnd;
 
-  TransitionController({required this.onAnimationComplete, required this.onTransitionEnd});
+  TransitionController({
+    required this.onAnimationComplete,
+    required this.onTransitionEnd,
+  });
 }

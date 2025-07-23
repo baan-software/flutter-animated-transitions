@@ -3,16 +3,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/enums.dart';
-import 'package:flutter_animations/transition_animation.dart';
+
+import '../enums.dart';
+import '../transition_animation.dart';
 
 class WaveBarsTransition extends TransitionAnimation {
   final TransitionDirection direction;
   final List<Color>? colors;
 
-  WaveBarsTransition({
+  const WaveBarsTransition({
     super.key,
-    this.direction = TransitionDirection.bottom,
+    required super.onAnimationComplete,
+    required super.onTransitionEnd,
+    this.direction = TransitionDirection.left,
     this.colors,
   });
 
@@ -20,7 +23,8 @@ class WaveBarsTransition extends TransitionAnimation {
   WaveBarsTransitionState createState() => WaveBarsTransitionState();
 }
 
-class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransition>
+class WaveBarsTransitionState
+    extends TransitionAnimationState<WaveBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
@@ -38,9 +42,7 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-    );
+    _controller = AnimationController(vsync: this);
 
     _fadeController = AnimationController(
       vsync: this,
@@ -67,7 +69,9 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
     final proportions = List.generate(_barCount, (_) => _random.nextDouble());
     final totalProportion = proportions.reduce((a, b) => a + b);
     _barThicknesses = proportions
-        .map((p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth))
+        .map(
+          (p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth),
+        )
         .toList();
 
     // 2. Generate timings for a wave effect
@@ -89,21 +93,19 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
     _controller.duration = Duration(milliseconds: totalDuration.toInt());
 
     // 3. Create animations
-    _sizeAnimations = List.generate(
-      _barCount,
-      (index) {
-        final start = startDelays[index] / totalDuration;
-        final end = endTimes[index] / totalDuration;
-        return Tween<double>(
-                begin: 0.0, end: _isHorizontal ? maxWidth : maxHeight)
-            .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Interval(start, end, curve: Curves.easeOut),
-          ),
-        );
-      },
-    );
+    _sizeAnimations = List.generate(_barCount, (index) {
+      final start = startDelays[index] / totalDuration;
+      final end = endTimes[index] / totalDuration;
+      return Tween<double>(
+        begin: 0.0,
+        end: _isHorizontal ? maxWidth : maxHeight,
+      ).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(start, end, curve: Curves.easeOut),
+        ),
+      );
+    });
 
     final List<Color> animationColors;
     final colors = widget.colors;
@@ -114,7 +116,7 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
     } else {
       animationColors = colors;
     }
-    
+
     final tweenItems = <TweenSequenceItem<Color?>>[];
     for (var i = 0; i < animationColors.length - 1; i++) {
       tweenItems.add(
@@ -128,19 +130,16 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
       );
     }
 
-    _colorAnimations = List.generate(
-      _barCount,
-      (index) {
-        final start = startDelays[index] / totalDuration;
-        final end = endTimes[index] / totalDuration;
-        return TweenSequence<Color?>(tweenItems).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Interval(start, end, curve: Curves.easeIn),
-          ),
-        );
-      },
-    );
+    _colorAnimations = List.generate(_barCount, (index) {
+      final start = startDelays[index] / totalDuration;
+      final end = endTimes[index] / totalDuration;
+      return TweenSequence<Color?>(tweenItems).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(start, end, curve: Curves.easeIn),
+        ),
+      );
+    });
   }
 
   @override
@@ -182,10 +181,9 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
               width: constraints.maxWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment:
-                    widget.direction == TransitionDirection.left
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.end,
+                crossAxisAlignment: widget.direction == TransitionDirection.left
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
@@ -207,8 +205,8 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment:
                     widget.direction == TransitionDirection.bottom
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
@@ -228,4 +226,4 @@ class WaveBarsTransitionState extends TransitionAnimationState<WaveBarsTransitio
       ),
     );
   }
-} 
+}

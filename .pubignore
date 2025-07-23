@@ -1,0 +1,9 @@
+# Files and directories to ignore when publishing to pub.dev.
+/example/
+/android/
+/ios/
+/linux/
+/macos/
+/web/
+/windows/
+.idea/ 

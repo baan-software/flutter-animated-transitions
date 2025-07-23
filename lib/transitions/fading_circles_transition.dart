@@ -3,33 +3,40 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/transition_animation.dart';
+
+import '../transition_animation.dart';
 
 class FadingCirclesTransition extends TransitionAnimation {
   final int circleCount;
   final List<Color>? colors;
 
-  FadingCirclesTransition({super.key, this.circleCount = 8, this.colors});
+  const FadingCirclesTransition({
+    super.key,
+    required super.onAnimationComplete,
+    required super.onTransitionEnd,
+    this.circleCount = 10,
+    this.colors,
+  });
 
   @override
-  State<FadingCirclesTransition> createState() => _FadingCirclesTransitionState();
+  State<FadingCirclesTransition> createState() =>
+      _FadingCirclesTransitionState();
 }
 
-class _FadingCirclesTransitionState extends TransitionAnimationState<FadingCirclesTransition>
+class _FadingCirclesTransitionState
+    extends TransitionAnimationState<FadingCirclesTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
-  final _random = Random();
-  List<Offset> _positions = [];
-  List<Animation<double>> _scaleAnimations = [];
-  List<Animation<Color?>> _colorAnimations = [];
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    _fadeController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400))
-      ..value = 1.0;
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    )..value = 1.0;
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -38,60 +45,8 @@ class _FadingCirclesTransitionState extends TransitionAnimationState<FadingCircl
       }
     });
     _fadeController.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
-        widget.onTransitionEnd();
-      }
+      if (status == AnimationStatus.dismissed) widget.onTransitionEnd();
     });
-  }
-
-  void _setup(Size size) {
-    final center = size.center(Offset.zero);
-    final radius = min(size.width, size.height) / 3;
-
-    _positions = List.generate(widget.circleCount, (i) {
-      final angle = 2 * pi * i / widget.circleCount;
-      return center + Offset(cos(angle), sin(angle)) * radius;
-    });
-
-    final durations = List.generate(widget.circleCount, (_) => 600 + _random.nextInt(400));
-    final totalDuration = durations.reduce(max);
-    _controller.duration = Duration(milliseconds: totalDuration);
-
-    _scaleAnimations = List.generate(widget.circleCount, (i) {
-      final start = 0.0;
-      final end = durations[i] / totalDuration;
-      return Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Interval(start, end, curve: Curves.easeOutBack),
-        ),
-      );
-    });
-
-    final colorList = widget.colors ?? [Colors.blue, Colors.purple];
-    final tweenItems = <TweenSequenceItem<Color?>>[];
-    for (var i = 0; i < colorList.length - 1; i++) {
-      tweenItems.add(TweenSequenceItem(
-        tween: ColorTween(begin: colorList[i], end: colorList[i + 1]),
-        weight: 1,
-      ));
-    }
-
-    _colorAnimations = List.generate(widget.circleCount, (i) {
-      final start = 0.0;
-      final end = durations[i] / totalDuration;
-      return TweenSequence<Color?>(tweenItems).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Interval(start, end, curve: Curves.easeIn),
-        ),
-      );
-    });
-  }
-
-  void _play() {
-    _controller.reset();
-    _controller.forward();
   }
 
   @override
@@ -103,55 +58,41 @@ class _FadingCirclesTransitionState extends TransitionAnimationState<FadingCircl
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _fadeController,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          if (_positions.isEmpty) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (mounted) {
-                _setup(Size(constraints.maxWidth, constraints.maxHeight));
-                _play();
-                setState(() {});
-              }
-            });
-            return const SizedBox();
-          }
-
-          return CustomPaint(
-            painter: _CirclePainter(
-              positions: _positions,
-              scales: _scaleAnimations,
-              colors: _colorAnimations,
-              animation: _controller,
-            ),
-            size: Size(constraints.maxWidth, constraints.maxHeight),
-          );
-        },
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (BuildContext context, Widget? child) {
+        return CustomPaint(
+          painter: _FadingCirclesPainter(
+            controller: _controller,
+            circleCount: widget.circleCount,
+            colors: widget.colors ?? [Colors.blue, Colors.red, Colors.green],
+          ),
+        );
+      },
     );
   }
 }
 
-class _CirclePainter extends CustomPainter {
-  final List<Offset> positions;
-  final List<Animation<double>> scales;
-  final List<Animation<Color?>> colors;
-  final Animation<double> animation;
-
-  _CirclePainter({
-    required this.positions,
-    required this.scales,
+class _FadingCirclesPainter extends CustomPainter {
+  _FadingCirclesPainter({
+    required this.controller,
+    required this.circleCount,
     required this.colors,
-    required this.animation,
-  }) : super(repaint: animation);
+  });
+
+  final AnimationController controller;
+  final int circleCount;
+  final List<Color> colors;
 
   @override
   void paint(Canvas canvas, Size size) {
-    for (int i = 0; i < positions.length; i++) {
-      final paint = Paint()..color = colors[i].value ?? Colors.black;
-      final radius = 20.0 * scales[i].value;
-      canvas.drawCircle(positions[i], radius, paint);
+    final radius = min(size.width, size.height) / 3;
+
+    for (int i = 0; i < circleCount; i++) {
+      final Paint paint = Paint()
+        ..color = colors[i % colors.length]
+            .withAlpha((255 * max(0, 1 - (i / circleCount - controller.value).abs())).toInt());
+      canvas.drawCircle(Offset.zero, radius * (i + 1), paint);
     }
   }
 

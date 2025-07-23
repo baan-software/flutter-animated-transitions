@@ -2,16 +2,19 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animations/enums.dart';
-import 'package:flutter_animations/transition_animation.dart';
+
+import '../enums.dart';
+import '../transition_animation.dart';
 
 class RandomFinishBarsTransition extends TransitionAnimation {
   final TransitionDirection direction;
   final List<Color>? colors;
 
-  RandomFinishBarsTransition({
+  const RandomFinishBarsTransition({
     super.key,
-    this.direction = TransitionDirection.bottom,
+    required super.onAnimationComplete,
+    required super.onTransitionEnd,
+    this.direction = TransitionDirection.left,
     this.colors,
   });
 
@@ -39,9 +42,7 @@ class RandomFinishBarsTransitionState
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-    );
+    _controller = AnimationController(vsync: this);
 
     _fadeController = AnimationController(
       vsync: this,
@@ -68,7 +69,9 @@ class RandomFinishBarsTransitionState
     final proportions = List.generate(_barCount, (_) => _random.nextDouble());
     final totalProportion = proportions.reduce((a, b) => a + b);
     _barThicknesses = proportions
-        .map((p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth))
+        .map(
+          (p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth),
+        )
         .toList();
 
     // 2. Generate random durations for each bar
@@ -83,21 +86,19 @@ class RandomFinishBarsTransitionState
     _controller.duration = Duration(milliseconds: totalDuration.toInt());
 
     // 3. Create animations
-    _sizeAnimations = List.generate(
-      _barCount,
-      (index) {
-        final start = 0.0;
-        final end = durations[index] / totalDuration;
-        return Tween<double>(
-                begin: 0.0, end: _isHorizontal ? maxWidth : maxHeight)
-            .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Interval(start, end, curve: Curves.easeOut),
-          ),
-        );
-      },
-    );
+    _sizeAnimations = List.generate(_barCount, (index) {
+      final start = 0.0;
+      final end = durations[index] / totalDuration;
+      return Tween<double>(
+        begin: 0.0,
+        end: _isHorizontal ? maxWidth : maxHeight,
+      ).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(start, end, curve: Curves.easeOut),
+        ),
+      );
+    });
 
     final List<Color> animationColors;
     final colors = widget.colors;
@@ -108,7 +109,7 @@ class RandomFinishBarsTransitionState
     } else {
       animationColors = colors;
     }
-    
+
     final tweenItems = <TweenSequenceItem<Color?>>[];
     for (var i = 0; i < animationColors.length - 1; i++) {
       tweenItems.add(
@@ -122,19 +123,16 @@ class RandomFinishBarsTransitionState
       );
     }
 
-    _colorAnimations = List.generate(
-      _barCount,
-      (index) {
-        final start = 0.0;
-        final end = durations[index] / totalDuration;
-        return TweenSequence<Color?>(tweenItems).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: Interval(start, end, curve: Curves.easeIn),
-          ),
-        );
-      },
-    );
+    _colorAnimations = List.generate(_barCount, (index) {
+      final start = 0.0;
+      final end = durations[index] / totalDuration;
+      return TweenSequence<Color?>(tweenItems).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(start, end, curve: Curves.easeIn),
+        ),
+      );
+    });
   }
 
   @override
@@ -176,10 +174,9 @@ class RandomFinishBarsTransitionState
               width: constraints.maxWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment:
-                    widget.direction == TransitionDirection.left
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.end,
+                crossAxisAlignment: widget.direction == TransitionDirection.left
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
@@ -201,8 +198,8 @@ class RandomFinishBarsTransitionState
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment:
                     widget.direction == TransitionDirection.bottom
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
@@ -222,4 +219,4 @@ class RandomFinishBarsTransitionState
       ),
     );
   }
-} 
+}

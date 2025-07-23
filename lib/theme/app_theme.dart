@@ -28,9 +28,7 @@ class AppTheme {
     cardTheme: CardThemeData(
       color: _primaryColor,
       elevation: 1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
 
@@ -55,15 +53,16 @@ class AppTheme {
       iconTheme: IconThemeData(color: _darkTextColor),
     ),
     textTheme: TextTheme(
-      headlineLarge: TextStyle(color: _darkTextColor, fontWeight: FontWeight.bold),
+      headlineLarge: TextStyle(
+        color: _darkTextColor,
+        fontWeight: FontWeight.bold,
+      ),
       bodyLarge: TextStyle(color: _darkTextColor),
     ),
     cardTheme: CardThemeData(
       color: _darkPrimaryColor,
       elevation: 1,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
-} 
+}
