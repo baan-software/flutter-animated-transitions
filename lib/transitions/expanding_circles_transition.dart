@@ -13,10 +13,8 @@ class ExpandingCirclesTransition extends TransitionAnimation {
   final int numberOfCircles;
   final List<Color>? colors;
 
-  const ExpandingCirclesTransition({
+  ExpandingCirclesTransition({
     super.key,
-    required super.onAnimationComplete,
-    required super.onTransitionEnd,
     this.color = Colors.deepPurple,
     this.colors,
     this.numberOfCircles = 25,

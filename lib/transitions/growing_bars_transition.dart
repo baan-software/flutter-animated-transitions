@@ -9,11 +9,9 @@ class GrowingBarsTransition extends TransitionAnimation {
   final TransitionDirection direction;
   final List<Color>? colors;
 
-  const GrowingBarsTransition({
+  GrowingBarsTransition({
     super.key,
-    required super.onAnimationComplete,
-    required super.onTransitionEnd,
-    this.direction = TransitionDirection.left,
+    this.direction = TransitionDirection.bottom,
     this.colors,
   });
 

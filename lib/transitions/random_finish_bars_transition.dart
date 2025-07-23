@@ -10,11 +10,9 @@ class RandomFinishBarsTransition extends TransitionAnimation {
   final TransitionDirection direction;
   final List<Color>? colors;
 
-  const RandomFinishBarsTransition({
+  RandomFinishBarsTransition({
     super.key,
-    required super.onAnimationComplete,
-    required super.onTransitionEnd,
-    this.direction = TransitionDirection.left,
+    this.direction = TransitionDirection.bottom,
     this.colors,
   });
 

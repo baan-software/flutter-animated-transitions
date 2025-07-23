@@ -10,13 +10,7 @@ class FadingCirclesTransition extends TransitionAnimation {
   final int circleCount;
   final List<Color>? colors;
 
-  const FadingCirclesTransition({
-    super.key,
-    required super.onAnimationComplete,
-    required super.onTransitionEnd,
-    this.circleCount = 10,
-    this.colors,
-  });
+  FadingCirclesTransition({super.key, this.circleCount = 8, this.colors});
 
   @override
   State<FadingCirclesTransition> createState() =>

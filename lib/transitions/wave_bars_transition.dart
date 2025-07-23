@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
 import '../enums.dart';
 import '../transition_animation.dart';
 
@@ -11,11 +10,9 @@ class WaveBarsTransition extends TransitionAnimation {
   final TransitionDirection direction;
   final List<Color>? colors;
 
-  const WaveBarsTransition({
+  WaveBarsTransition({
     super.key,
-    required super.onAnimationComplete,
-    required super.onTransitionEnd,
-    this.direction = TransitionDirection.left,
+    this.direction = TransitionDirection.bottom,
     this.colors,
   });
 
