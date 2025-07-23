@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_transitions/animated_transitions.dart';
 
-import 'screen_b.dart';
+import 'next_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,9 +19,15 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: GrowingBarsTransition(
                   direction: TransitionDirection.top,
+                  colors: const [
+                    Colors.blue,
+                    Colors.red,
+                    Colors.green,
+                    Colors.yellow,
+                  ],
                 ),
               ),
             ),
@@ -31,9 +37,13 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: GrowingBarsTransition(
                   direction: TransitionDirection.left,
+                  colors: const [
+                    Colors.blue,
+                    Colors.blueGrey,
+                  ],
                 ),
               ),
             ),
@@ -43,8 +53,13 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
-                transitionAnimation: WaveBarsTransition(),
+                builder: (context) => const NextScreen(),
+                transitionAnimation: WaveBarsTransition(
+                  colors: const [
+                    Colors.yellow,
+                    Colors.red,
+                  ],
+                ),
               ),
             ),
           ),
@@ -53,9 +68,12 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
                   direction: TransitionDirection.right,
+                  colors: const [
+                    Colors.greenAccent
+                  ],
                 ),
               ),
             ),
@@ -65,7 +83,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: RandomFinishBarsTransition(
                   direction: TransitionDirection.top,
                 ),
@@ -77,20 +95,10 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: RandomFinishBarsTransition(
                   direction: TransitionDirection.left,
                 ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: const Text('Fading Circles'),
-            onTap: () => Navigator.push(
-              context,
-              TransitionPageRoute(
-                builder: (context) => const ScreenB(),
-                transitionAnimation: FadingCirclesTransition(),
               ),
             ),
           ),
@@ -99,7 +107,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
-                builder: (context) => const ScreenB(),
+                builder: (context) => const NextScreen(),
                 transitionAnimation: ExpandingCirclesTransition(
                   numberOfCircles: 5,
                   colors: const [

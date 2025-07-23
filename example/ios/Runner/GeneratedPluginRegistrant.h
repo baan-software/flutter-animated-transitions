@@ -4,18 +4,16 @@
 
 // clang-format off
 
-#import "GeneratedPluginRegistrant.h"
+#ifndef GeneratedPluginRegistrant_h
+#define GeneratedPluginRegistrant_h
 
-#if __has_include(<animated_transitions/AnimatedTransitionsPlugin.h>)
-#import <animated_transitions/AnimatedTransitionsPlugin.h>
-#else
-@import animated_transitions;
-#endif
+#import <Flutter/Flutter.h>
 
-@implementation GeneratedPluginRegistrant
+NS_ASSUME_NONNULL_BEGIN
 
-+ (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [AnimatedTransitionsPlugin registerWithRegistrar:[registry registrarForPlugin:@"AnimatedTransitionsPlugin"]];
-}
+@interface GeneratedPluginRegistrant : NSObject
++ (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry;
+@end
 
-@end 
+NS_ASSUME_NONNULL_END
+#endif /* GeneratedPluginRegistrant_h */

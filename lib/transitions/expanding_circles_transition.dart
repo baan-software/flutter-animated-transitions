@@ -5,8 +5,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import '../transition_animation.dart';
+import 'package:animated_transitions/transition_animation.dart';
 
 class ExpandingCirclesTransition extends TransitionAnimation {
   final Color? color;
