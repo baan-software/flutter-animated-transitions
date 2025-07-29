@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'transition_controller.dart';
 
 abstract class Transition extends StatefulWidget {
+  
+  final Duration duration;
   TransitionController? controller;
 
-  Transition({super.key});
+  Transition({super.key, required this.duration});
 
   @override
   State<Transition> createState();

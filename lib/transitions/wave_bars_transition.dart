@@ -14,6 +14,7 @@ class WaveBarsTransition extends Transition {
     super.key,
     this.direction = TransitionDirection.bottom,
     this.colors,
+    super.duration = const Duration(milliseconds: 500),
   });
 
   @override
@@ -78,8 +79,8 @@ class WaveBarsTransitionState
       startDelays.add(prevStart + _random.nextDouble() * 20);
     }
 
-    const double barAnimationDuration = 500; // ms
-    final List<double> durations = List.filled(_barCount, barAnimationDuration);
+    int barAnimationDuration = widget.duration.inMilliseconds;
+    final List<double> durations = List.filled(_barCount, barAnimationDuration.toDouble());
 
     final List<double> endTimes = [];
     for (int i = 0; i < _barCount; i++) {

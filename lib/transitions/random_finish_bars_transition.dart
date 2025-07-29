@@ -14,6 +14,7 @@ class RandomFinishBarsTransition extends Transition {
     super.key,
     this.direction = TransitionDirection.bottom,
     this.colors,
+    super.duration = const Duration(milliseconds: 500),
   });
 
   @override
@@ -73,8 +74,8 @@ class RandomFinishBarsTransitionState
         .toList();
 
     // 2. Generate random durations for each bar
-    const double baseDuration = 500; // ms
-    const double durationVariation = 200; // ms
+    int baseDuration = widget.duration.inMilliseconds;
+    double durationVariation = widget.duration.inMilliseconds/2.0;
     final List<double> durations = List.generate(
       _barCount,
       (_) => baseDuration + _random.nextDouble() * durationVariation,

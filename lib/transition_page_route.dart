@@ -9,7 +9,7 @@ class TransitionPageRoute extends PageRouteBuilder {
     required WidgetBuilder builder,
     required this.transitionAnimation,
   }) : super(
-         transitionDuration: const Duration(milliseconds: 1000),
+         transitionDuration: transitionAnimation.duration,
          opaque: false,
          pageBuilder: (context, animation, secondaryAnimation) =>
              builder(context),

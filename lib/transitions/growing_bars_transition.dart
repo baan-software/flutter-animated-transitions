@@ -12,7 +12,8 @@ class GrowingBarsTransition extends Transition {
   GrowingBarsTransition(
       {super.key,
       this.direction = TransitionDirection.bottom,
-      this.colors});
+      this.colors,
+      super.duration = const Duration(milliseconds: 800)});
 
   @override
   State<GrowingBarsTransition> createState() => GrowingBarsTransitionState();
@@ -66,8 +67,8 @@ class GrowingBarsTransitionState
         (_isHorizontal ? maxHeight : maxWidth) / _barCount;
     final double initialBarThickness = finalBarThickness * 0.5;
 
-    const double baseDuration = 800; // ms
-    const double durationVariation = 400; // ms
+    int baseDuration = widget.duration.inMilliseconds; 
+    double durationVariation = widget.duration.inMilliseconds/2.0;
     final List<double> durations = List.generate(
       _barCount,
       (_) => baseDuration + _random.nextDouble() * durationVariation,

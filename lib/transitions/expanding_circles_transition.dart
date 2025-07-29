@@ -17,6 +17,7 @@ class ExpandingCirclesTransition extends Transition {
     this.color = Colors.deepPurple,
     this.colors,
     this.numberOfCircles = 25,
+    super.duration = const Duration(milliseconds: 800),
   });
 
   @override
@@ -40,7 +41,7 @@ class _ExpandingCirclesTransitionState
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: widget.duration,
     );
 
     _fadeController = AnimationController(
