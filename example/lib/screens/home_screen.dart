@@ -120,6 +120,98 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          ListTile(
+            title: const Text('Random Pixelated'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: RandomPixelatedTransition(
+                  pixelDensity: 100,
+                  colors: const [
+                    Colors.blue,
+                    Colors.red,
+                    Colors.green,
+                    Colors.yellow,
+                  ],
+                  exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Pixelated (Top to Bottom)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: DirectionalPixelatedTransition(
+                  pixelDensity: 40,
+                  direction: TransitionDirection.top,
+                  colors: const [
+                    Colors.purple,
+                    Colors.deepPurple,
+                    Colors.indigo,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Pixelated (Bottom to Top)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: DirectionalPixelatedTransition(
+                  pixelDensity: 40,
+                  direction: TransitionDirection.bottom,
+                  colors: const [Colors.orange, Colors.deepOrange, Colors.red],
+                  exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Pixelated (Left to Right)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: DirectionalPixelatedTransition(
+                  pixelDensity: 40,
+                  direction: TransitionDirection.left,
+                  colors: const [
+                    Colors.blue,
+                    Colors.red,
+                    Colors.green,
+                    Colors.yellow,
+                  ],
+                  exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Pixelated (Right to Left)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: DirectionalPixelatedTransition(
+                  pixelDensity: 40,
+                  direction: TransitionDirection.right,
+                  colors: const [
+                    Colors.blue,
+                    Colors.red,
+                    Colors.green,
+                    Colors.yellow,
+                  ],
+                  exitMode: TransitionExitMode.sameDirection,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
