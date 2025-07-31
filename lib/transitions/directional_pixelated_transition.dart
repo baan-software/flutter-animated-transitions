@@ -14,6 +14,7 @@ class DirectionalPixelatedTransition extends PixelatedTransitionBase {
     super.colors,
     super.pixelDensity,
     super.duration,
+    super.exitMode,
     this.direction = TransitionDirection.bottom,
   });
 

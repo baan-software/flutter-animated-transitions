@@ -10,6 +10,7 @@ class RandomPixelatedTransition extends PixelatedTransitionBase {
     super.colors,
     super.pixelDensity,
     super.duration,
+    super.exitMode,
   });
 
   final _random = Random();

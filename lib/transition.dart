@@ -2,13 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'transition_controller.dart';
+import 'enums.dart';
 
 abstract class Transition extends StatefulWidget {
-  
   final Duration duration;
+  final TransitionExitMode exitMode;
   TransitionController? controller;
 
-  Transition({super.key, required this.duration});
+  Transition({
+    super.key,
+    required this.duration,
+    this.exitMode = TransitionExitMode.fade,
+  });
 
   @override
   State<Transition> createState();
@@ -22,5 +27,4 @@ abstract class Transition extends StatefulWidget {
   }
 }
 
-abstract class TransitionState<T extends Transition>
-    extends State<T> {}
+abstract class TransitionState<T extends Transition> extends State<T> {}
