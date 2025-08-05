@@ -1,10 +1,10 @@
 # Animated Transitions
 
-A Flutter package providing a collection of beautiful and smooth transitions for page navigation. Easily implement complex animations with minimal code.
+A Flutter package providing a collection of beautiful and smooth transitions for page navigation
 
 ## Features
 
-- A curated set of high-quality page transitions.
+- A set of high-quality page transitions.
 - Simple, controller-based animation management.
 - Customizable transition duration and behavior.
 - Works with the standard Flutter Navigator.
@@ -15,7 +15,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_transitions: ^0.0.1
+  animated_transitions: ^1.0.1
 ```
 
 Then, run `flutter pub get` in your terminal.
@@ -32,8 +32,19 @@ import 'package:animated_transitions/animated_transitions.dart';
 
 Navigator.of(context).push(
   TransitionPageRoute(
-    page: ScreenB(),
-    transition: TransitionType.fadingCircles,
+    page: NextScreen(),
+    transition: TransitionPageRoute(
+      builder: (context) => const NextScreen(),
+      transitionAnimation: GrowingBarsTransition(
+        direction: TransitionDirection.top,
+        colors: const [
+          Colors.blue,
+          Colors.red,
+          Colors.green,
+          Colors.yellow,
+        ],
+      ),
+    ),
   ),
 );
 ```
