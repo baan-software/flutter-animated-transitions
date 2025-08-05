@@ -1,7 +1,7 @@
 name: animated_transitions_example
 description: "Demonstrates how to use the animated_transitions package."
 
-version: 1.0.4+1
+version: 1.0.5+1
 
 environment:
   sdk: ^3.8.1
@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  animated_transitions: ^1.0.4
+  animated_transitions: ^1.0.5
   cupertino_icons: ^1.0.8
 
 dev_dependencies:

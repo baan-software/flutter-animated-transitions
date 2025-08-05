@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+
+- Added example app to the package
+
 ## 1.0.4
 
 - README Update
