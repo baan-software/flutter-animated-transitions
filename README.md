@@ -9,8 +9,16 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 - Customizable transition duration and behavior.
 - Works with the standard Flutter Navigator.
 
+<p>
+<img src="example/demo_gifs/bars_left.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
 
-![Horizonal Bars](example/demo_gifs/bars_left.gif) ![Vertical Bars](example/demo_gifs/bars_top.gif) ![Pixelated In & Out](example/demo_gifs/pixels_random_in_out.gif)
+
+<img src="example/demo_gifs/bars_top.gif" alt="Vertical Growing Bars" width="222" height="480" loop=infinite>
+
+
+<img src="example/demo_gifs/bars_left.gif" alt="Random Pixelated" width="222" height="480" loop=infinite>
+</p>
+
 
 ## Usage
 
