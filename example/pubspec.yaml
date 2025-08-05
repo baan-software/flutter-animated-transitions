@@ -10,9 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  animated_transitions:
-    path: ../
-
+  animated_transitions: ^1.0.1
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
