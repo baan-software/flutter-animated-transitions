@@ -11,6 +11,8 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 
 
 ![Horizonal Bars](example/demo_gifs/bars_left.gif)
+![Vertical Bars](example/demo_gifs/bars_top.gif)
+![Pixelated In & Out](example/demo_gifs/pixels_random_in_out.gif)
 
 ## Usage
 
