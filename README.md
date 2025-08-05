@@ -32,19 +32,8 @@ import 'package:animated_transitions/animated_transitions.dart';
 
 Navigator.of(context).push(
   TransitionPageRoute(
-    page: NextScreen(),
-    transition: TransitionPageRoute(
-      builder: (context) => const NextScreen(),
-      transitionAnimation: GrowingBarsTransition(
-        direction: TransitionDirection.top,
-        colors: const [
-          Colors.blue,
-          Colors.red,
-          Colors.green,
-          Colors.yellow,
-        ],
-      ),
-    ),
+    builder: (context) => const NextScreen(),
+    transitionAnimation: GrowingBarsTransition(),
   ),
 );
 ```
