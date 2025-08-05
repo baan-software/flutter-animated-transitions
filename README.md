@@ -12,6 +12,9 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 <p>
 <img src="example/demo_gifs/bars_left.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
 
+<img src="example/demo_gifs/bars_left-infinite.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
+
+
 <img src="example/demo_gifs/bars_top.gif" alt="Vertical Growing Bars" width="222" height="480" loop=infinite>
 
 <img src="example/demo_gifs/random_finish_top.gif" alt="Horizontal Random Finish" width="222" height="480" loop=infinite>
