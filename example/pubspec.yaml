@@ -15,8 +15,6 @@ dependencies:
     path: ../
 
   cupertino_icons: ^1.0.8
-  go_router: ^16.0.0
-  auto_route: ^10.1.0+1
 
 dev_dependencies:
   flutter_test:
