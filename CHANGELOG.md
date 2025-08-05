@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.6
+
+- Updated github URLs
+
 ## 1.0.5
 
 - Added example app to the package
