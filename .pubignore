@@ -6,4 +6,5 @@
 /macos/
 /web/
 /windows/
-.idea/ 
+.idea/
+/build/ 
