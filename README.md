@@ -9,6 +9,7 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 - Customizable transition duration and behavior.
 - Works with the standard Flutter Navigator.
 
+## Showcase
 <p>
 <img src="example/demo_gifs/bars_left.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
 
