@@ -15,10 +15,17 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 
 <img src="example/demo_gifs/bars_top.gif" alt="Vertical Growing Bars" width="222" height="480" loop=infinite>
 
-
-<img src="example/demo_gifs/bars_left.gif" alt="Random Pixelated" width="222" height="480" loop=infinite>
+<img src="example/demo_gifs/random_finish_top.gif" alt="Horizontal Random Finish" width="222" height="480" loop=infinite>
 </p>
 
+<img src="example/demo_gifs/pixels_random_in_out.gif" alt="Random Pixelated" width="222" height="480" loop=infinite>
+</p>
+
+<img src="example/demo_gifs/pixels_top.gif" alt="Vertical Pixels" width="222" height="480" loop=infinite>
+</p>
+
+<img src="example/demo_gifs/wave_bottom.gif" alt="Vertical Wave" width="222" height="480" loop=infinite>
+</p>
 
 ## Usage
 
@@ -38,4 +45,8 @@ Navigator.of(context).push(
 );
 ```
 
-For more advanced usage and a full list of available transitions, please see the example application in the `/example` directory.
+
+
+## Create your own
+
+Create your own transition by subclassing `Transition` widget
