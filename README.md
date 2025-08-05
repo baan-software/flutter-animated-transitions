@@ -9,16 +9,8 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 - Customizable transition duration and behavior.
 - Works with the standard Flutter Navigator.
 
-## Installation
 
-Add this to your package's `pubspec.yaml` file:
-
-```yaml
-dependencies:
-  animated_transitions: ^1.0.2
-```
-
-Then, run `flutter pub get` in your terminal.
+![Horizonal Bars](example/demo_gifs/bars_left.gif)
 
 ## Usage
 
