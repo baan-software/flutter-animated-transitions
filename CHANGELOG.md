@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.1
+## 1.0.2
 
 - Initial version of the `animated_transitions` package.
 - Includes a set of pre-built transitions.

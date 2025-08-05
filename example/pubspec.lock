@@ -8,7 +8,7 @@ packages:
       sha256: "67962a179b8ac344b0da73d7aedc291eb248db0001aa3decbd114da820cc0263"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   async:
     dependency: transitive
     description:

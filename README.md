@@ -15,7 +15,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  animated_transitions: ^1.0.1
+  animated_transitions: ^1.0.2
 ```
 
 Then, run `flutter pub get` in your terminal.
