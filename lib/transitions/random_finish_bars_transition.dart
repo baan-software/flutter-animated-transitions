@@ -15,6 +15,7 @@ class RandomFinishBarsTransition extends Transition {
     this.direction = TransitionDirection.bottom,
     this.colors,
     super.duration = const Duration(milliseconds: 500),
+    super.exitMode = TransitionExitMode.fade,
   });
 
   @override
@@ -33,10 +34,33 @@ class RandomFinishBarsTransitionState
   final int _barCount = 50;
   final _random = Random();
   Size? _lastSize;
+  bool _isExiting = false;
+  List<double>? _storedDurations; // Store durations for consistent exit
+  List<double>? _storedThicknesses; // Store thicknesses for consistent exit
 
   bool get _isHorizontal =>
       widget.direction == TransitionDirection.left ||
       widget.direction == TransitionDirection.right;
+
+  // Get the effective direction for the current animation phase
+  TransitionDirection get _effectiveDirection {
+    return (!_isExiting || widget.exitMode == TransitionExitMode.reverse)
+        ? widget.direction
+        : _getOppositeDirection(widget.direction);
+  }
+
+  TransitionDirection _getOppositeDirection(TransitionDirection direction) {
+    switch (direction) {
+      case TransitionDirection.left:
+        return TransitionDirection.right;
+      case TransitionDirection.right:
+        return TransitionDirection.left;
+      case TransitionDirection.top:
+        return TransitionDirection.bottom;
+      case TransitionDirection.bottom:
+        return TransitionDirection.top;
+    }
+  }
 
   @override
   void initState() {
@@ -45,41 +69,75 @@ class RandomFinishBarsTransitionState
 
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: widget.exitMode == TransitionExitMode.fade
+          ? const Duration(milliseconds: 400)
+          : widget.duration,
     );
     _fadeController.value = 1.0;
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onAnimationComplete();
-        _fadeController.reverse();
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (!mounted) return;
+          _isExiting = true;
+          if (widget.exitMode == TransitionExitMode.fade) {
+            _fadeController.reverse();
+          } else {
+            _setupAnimations(_lastSize!.width, _lastSize!.height);
+            _controller.reset();
+            _controller.forward();
+          }
+        });
       }
     });
 
     _fadeController.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
+      if (status == AnimationStatus.dismissed &&
+          widget.exitMode == TransitionExitMode.fade) {
+        widget.onTransitionEnd();
+      }
+    });
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && _isExiting) {
         widget.onTransitionEnd();
       }
     });
   }
 
   void _setupAnimations(double maxWidth, double maxHeight) {
-    // 1. Generate random thicknesses
-    final proportions = List.generate(_barCount, (_) => _random.nextDouble());
-    final totalProportion = proportions.reduce((a, b) => a + b);
-    _barThicknesses = proportions
-        .map(
-          (p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth),
-        )
-        .toList();
+    // 1. Use stored thicknesses for exit, or generate new ones for entrance
+    if (_isExiting && _storedThicknesses != null) {
+      _barThicknesses = _storedThicknesses!;
+    } else {
+      final proportions = List.generate(_barCount, (_) => _random.nextDouble());
+      final totalProportion = proportions.reduce((a, b) => a + b);
+      _barThicknesses = proportions
+          .map(
+            (p) => p / totalProportion * (_isHorizontal ? maxHeight : maxWidth),
+          )
+          .toList();
+      if (!_isExiting) {
+        _storedThicknesses = List.from(_barThicknesses); // Store for exit phase
+      }
+    }
 
-    // 2. Generate random durations for each bar
-    int baseDuration = widget.duration.inMilliseconds;
-    double durationVariation = widget.duration.inMilliseconds/2.0;
-    final List<double> durations = List.generate(
-      _barCount,
-      (_) => baseDuration + _random.nextDouble() * durationVariation,
-    );
+    // 2. Use stored durations for exit, or generate new ones for entrance
+    final List<double> durations;
+    if (_isExiting && _storedDurations != null) {
+      durations = _storedDurations!;
+    } else {
+      int baseDuration = widget.duration.inMilliseconds;
+      double durationVariation = widget.duration.inMilliseconds / 2.0;
+      durations = List.generate(
+        _barCount,
+        (_) => baseDuration + _random.nextDouble() * durationVariation,
+      );
+      if (!_isExiting) {
+        _storedDurations = List.from(durations); // Store for exit phase
+      }
+    }
 
     final double totalDuration = durations.reduce(max);
     _controller.duration = Duration(milliseconds: totalDuration.toInt());
@@ -88,13 +146,17 @@ class RandomFinishBarsTransitionState
     _sizeAnimations = List.generate(_barCount, (index) {
       final start = 0.0;
       final end = durations[index] / totalDuration;
-      return Tween<double>(
-        begin: 0.0,
-        end: _isHorizontal ? maxWidth : maxHeight,
-      ).animate(
+      final maxSize = _isHorizontal ? maxWidth : maxHeight;
+
+      // For exit animations, bars shrink from full size to 0
+      final begin = _isExiting ? maxSize : 0.0;
+      final endSize = _isExiting ? 0.0 : maxSize;
+      final curve = _isExiting ? Curves.easeIn : Curves.easeOut;
+
+      return Tween<double>(begin: begin, end: endSize).animate(
         CurvedAnimation(
           parent: _controller,
-          curve: Interval(start, end, curve: Curves.easeOut),
+          curve: Interval(start, end, curve: curve),
         ),
       );
     });
@@ -110,16 +172,32 @@ class RandomFinishBarsTransitionState
     }
 
     final tweenItems = <TweenSequenceItem<Color?>>[];
-    for (var i = 0; i < animationColors.length - 1; i++) {
-      tweenItems.add(
-        TweenSequenceItem(
-          tween: ColorTween(
-            begin: animationColors[i],
-            end: animationColors[i + 1],
+
+    if (_isExiting && widget.exitMode != TransitionExitMode.fade) {
+      // Reverse the color sequence for exit animations
+      for (var i = animationColors.length - 1; i > 0; i--) {
+        tweenItems.add(
+          TweenSequenceItem(
+            tween: ColorTween(
+              begin: animationColors[i],
+              end: animationColors[i - 1],
+            ),
+            weight: 1,
           ),
-          weight: 1,
-        ),
-      );
+        );
+      }
+    } else {
+      for (var i = 0; i < animationColors.length - 1; i++) {
+        tweenItems.add(
+          TweenSequenceItem(
+            tween: ColorTween(
+              begin: animationColors[i],
+              end: animationColors[i + 1],
+            ),
+            weight: 1,
+          ),
+        );
+      }
     }
 
     _colorAnimations = List.generate(_barCount, (index) {
@@ -153,7 +231,8 @@ class RandomFinishBarsTransitionState
       child: LayoutBuilder(
         builder: (context, constraints) {
           final newSize = Size(constraints.maxWidth, constraints.maxHeight);
-          if (newSize != _lastSize) {
+          if (newSize != _lastSize && !_isExiting) {
+            // Only setup on size change during entrance
             _lastSize = newSize;
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (mounted) {
@@ -173,17 +252,24 @@ class RandomFinishBarsTransitionState
               width: constraints.maxWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: widget.direction == TransitionDirection.left
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.end,
+                crossAxisAlignment:
+                    _effectiveDirection == TransitionDirection.left
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.end,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
                     builder: (context, child) {
-                      return Container(
-                        width: _sizeAnimations[index].value,
-                        height: _barThicknesses[index],
-                        color: _colorAnimations[index].value,
+                      return Align(
+                        alignment:
+                            _effectiveDirection == TransitionDirection.left
+                                ? Alignment.centerLeft
+                                : Alignment.centerRight,
+                        child: Container(
+                          width: _sizeAnimations[index].value,
+                          height: _barThicknesses[index],
+                          color: _colorAnimations[index].value,
+                        ),
                       );
                     },
                   );
@@ -196,17 +282,23 @@ class RandomFinishBarsTransitionState
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment:
-                    widget.direction == TransitionDirection.bottom
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
+                    _effectiveDirection == TransitionDirection.bottom
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
                     builder: (context, child) {
-                      return Container(
-                        width: _barThicknesses[index],
-                        height: _sizeAnimations[index].value,
-                        color: _colorAnimations[index].value,
+                      return Align(
+                        alignment:
+                            _effectiveDirection == TransitionDirection.bottom
+                                ? Alignment.bottomCenter
+                                : Alignment.topCenter,
+                        child: Container(
+                          width: _barThicknesses[index],
+                          height: _sizeAnimations[index].value,
+                          color: _colorAnimations[index].value,
+                        ),
                       );
                     },
                   );
