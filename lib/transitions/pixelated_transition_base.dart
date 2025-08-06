@@ -19,7 +19,7 @@ abstract class PixelatedTransitionBase extends Transition {
     this.colors,
     int pixelDensity = 30,
     super.duration = const Duration(milliseconds: 1200),
-    super.exitMode = TransitionExitMode.fade,
+    super.exitMode = TransitionExitMode.sameDirection,
   }) : pixelDensity = pixelDensity.clamp(pixelDensityMin, pixelDensityMax);
 
   @override

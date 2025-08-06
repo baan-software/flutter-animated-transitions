@@ -4,11 +4,10 @@ packages:
   animated_transitions:
     dependency: "direct main"
     description:
-      name: animated_transitions
-      sha256: "0653ea3a76c4c2df392a7e97401226afcbec5dc1ab7a72906b707e543c2356a1"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
+      path: ".."
+      relative: true
+    source: path
+    version: "1.0.7"
   async:
     dependency: transitive
     description:
