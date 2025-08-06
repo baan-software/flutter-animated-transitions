@@ -99,6 +99,7 @@ class _ClockSweepTransitionState extends TransitionState<ClockSweepTransition>
     switch (widget.exitMode) {
       case TransitionExitMode.fade:
         // Fade out the overlay while keeping the sweep at full
+        // Don't animate the main controller during fade
         _fadeController.forward();
         break;
       case TransitionExitMode.reverse:
@@ -114,12 +115,36 @@ class _ClockSweepTransitionState extends TransitionState<ClockSweepTransition>
 
   @override
   Widget build(BuildContext context) {
+    // For fade exit mode, only listen to fade controller
+    if (_isExiting && widget.exitMode == TransitionExitMode.fade) {
+      return AnimatedBuilder(
+        animation: _fadeController,
+        builder: (context, child) {
+          return Opacity(
+            opacity: 1.0 - (_fadeAnimation?.value ?? 0.0),
+            child: ClipPath(
+              clipper: ClockSweepClipper(
+                sweepAngle: 2 * pi, // Full sweep
+                clockwise: widget.clockwise,
+              ),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: _buildDecoration(2 * pi), // Use final color
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    // For all other modes, use main controller
     return AnimatedBuilder(
-      animation: Listenable.merge([_controller, _fadeController]),
+      animation: _controller,
       builder: (context, child) {
         double currentSweepAngle = _sweepAnimation?.value ?? 0.0;
 
-        Widget overlay = ClipPath(
+        return ClipPath(
           clipper: ClockSweepClipper(
             sweepAngle: currentSweepAngle,
             clockwise: widget.clockwise,
@@ -127,27 +152,17 @@ class _ClockSweepTransitionState extends TransitionState<ClockSweepTransition>
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: _buildDecoration(),
+            decoration: _buildDecoration(currentSweepAngle),
           ),
         );
-
-        // Apply fade animation for fade exit mode
-        if (_isExiting && widget.exitMode == TransitionExitMode.fade) {
-          overlay = Opacity(
-            opacity: 1.0 - (_fadeAnimation?.value ?? 0.0),
-            child: overlay,
-          );
-        }
-
-        return overlay;
       },
     );
   }
 
-  BoxDecoration _buildDecoration() {
+  BoxDecoration _buildDecoration(double sweepAngle) {
     if (widget.colors != null && widget.colors!.isNotEmpty) {
       // Progress through colors linearly from first to last (no cycling back)
-      final animationProgress = (_sweepAnimation?.value ?? 0.0) / (2 * pi);
+      final animationProgress = sweepAngle / (2 * pi);
       final colorProgress = animationProgress * (widget.colors!.length - 1);
       final colorIndex =
           colorProgress.floor().clamp(0, widget.colors!.length - 2);
