@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7
+
+- Dart format
+
+
 ## 1.0.6
 
 - Updated github URLs

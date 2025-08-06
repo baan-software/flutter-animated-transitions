@@ -9,17 +9,17 @@ class TransitionPageRoute extends PageRouteBuilder {
     required WidgetBuilder builder,
     required this.transitionAnimation,
   }) : super(
-         transitionDuration: transitionAnimation.duration,
-         opaque: false,
-         pageBuilder: (context, animation, secondaryAnimation) =>
-             builder(context),
-         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-           return _TransitionAnimator(
-             transitionAnimation: transitionAnimation,
-             child: child,
-           );
-         },
-       );
+          transitionDuration: transitionAnimation.duration,
+          opaque: false,
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              builder(context),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return _TransitionAnimator(
+              transitionAnimation: transitionAnimation,
+              child: child,
+            );
+          },
+        );
 }
 
 class _TransitionAnimator extends StatefulWidget {
