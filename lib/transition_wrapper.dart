@@ -6,7 +6,8 @@ class TransitionWrapper extends StatefulWidget {
   final Widget child;
   final Transition transition;
 
-  const TransitionWrapper({super.key, required this.child, required this.transition});
+  const TransitionWrapper(
+      {super.key, required this.child, required this.transition});
 
   @override
   State<TransitionWrapper> createState() => _TransitionWrapperState();
@@ -34,7 +35,7 @@ class _TransitionWrapperState extends State<TransitionWrapper> {
     if (_done) {
       return widget.child;
     }
-    
+
     return Stack(
       children: [
         if (_showChild) widget.child,

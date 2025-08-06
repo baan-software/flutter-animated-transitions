@@ -75,7 +75,7 @@ class RandomFinishBarsTransitionState
 
     // 2. Generate random durations for each bar
     int baseDuration = widget.duration.inMilliseconds;
-    double durationVariation = widget.duration.inMilliseconds/2.0;
+    double durationVariation = widget.duration.inMilliseconds / 2.0;
     final List<double> durations = List.generate(
       _barCount,
       (_) => baseDuration + _random.nextDouble() * durationVariation,
@@ -197,8 +197,8 @@ class RandomFinishBarsTransitionState
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment:
                     widget.direction == TransitionDirection.bottom
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,

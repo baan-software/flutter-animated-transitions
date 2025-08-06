@@ -21,8 +21,7 @@ class WaveBarsTransition extends Transition {
   WaveBarsTransitionState createState() => WaveBarsTransitionState();
 }
 
-class WaveBarsTransitionState
-    extends TransitionState<WaveBarsTransition>
+class WaveBarsTransitionState extends TransitionState<WaveBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
@@ -80,7 +79,8 @@ class WaveBarsTransitionState
     }
 
     int barAnimationDuration = widget.duration.inMilliseconds;
-    final List<double> durations = List.filled(_barCount, barAnimationDuration.toDouble());
+    final List<double> durations =
+        List.filled(_barCount, barAnimationDuration.toDouble());
 
     final List<double> endTimes = [];
     for (int i = 0; i < _barCount; i++) {
@@ -203,8 +203,8 @@ class WaveBarsTransitionState
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment:
                     widget.direction == TransitionDirection.bottom
-                    ? CrossAxisAlignment.end
-                    : CrossAxisAlignment.start,
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,

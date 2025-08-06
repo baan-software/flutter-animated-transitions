@@ -22,13 +22,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Animations Showcase')),
       body: ListView(
@@ -59,10 +57,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: GrowingBarsTransition(
                   direction: TransitionDirection.left,
-                  colors: const [
-                    Colors.blue,
-                    Colors.blueGrey,
-                  ],
+                  colors: const [Colors.blue, Colors.blueGrey],
                 ),
               ),
             ),
@@ -74,10 +69,7 @@ class HomeScreen extends StatelessWidget {
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
-                  colors: const [
-                    Colors.yellow,
-                    Colors.red,
-                  ],
+                  colors: const [Colors.yellow, Colors.red],
                 ),
               ),
             ),
@@ -90,9 +82,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
                   direction: TransitionDirection.right,
-                  colors: const [
-                    Colors.greenAccent
-                  ],
+                  colors: const [Colors.greenAccent],
                 ),
               ),
             ),

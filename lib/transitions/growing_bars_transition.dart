@@ -19,8 +19,7 @@ class GrowingBarsTransition extends Transition {
   State<GrowingBarsTransition> createState() => GrowingBarsTransitionState();
 }
 
-class GrowingBarsTransitionState
-    extends TransitionState<GrowingBarsTransition>
+class GrowingBarsTransitionState extends TransitionState<GrowingBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
@@ -67,8 +66,8 @@ class GrowingBarsTransitionState
         (_isHorizontal ? maxHeight : maxWidth) / _barCount;
     final double initialBarThickness = finalBarThickness * 0.5;
 
-    int baseDuration = widget.duration.inMilliseconds; 
-    double durationVariation = widget.duration.inMilliseconds/2.0;
+    int baseDuration = widget.duration.inMilliseconds;
+    double durationVariation = widget.duration.inMilliseconds / 2.0;
     final List<double> durations = List.generate(
       _barCount,
       (_) => baseDuration + _random.nextDouble() * durationVariation,
@@ -185,10 +184,9 @@ class GrowingBarsTransitionState
               width: constraints.maxWidth,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment:
-                    widget.direction == TransitionDirection.left
-                        ? CrossAxisAlignment.start
-                        : CrossAxisAlignment.end,
+                crossAxisAlignment: widget.direction == TransitionDirection.left
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.end,
                 children: List.generate(_barCount, (index) {
                   return AnimatedBuilder(
                     animation: _controller,
@@ -231,4 +229,4 @@ class GrowingBarsTransitionState
       ),
     );
   }
-} 
+}
