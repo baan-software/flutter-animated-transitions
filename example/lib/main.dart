@@ -222,6 +222,39 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          ListTile(
+            title: const Text('Brush Stroke Top'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: BrushStrokeTransition(
+                  direction: TransitionDirection.top,
+                  colors: const [Colors.black87, Colors.grey, Colors.blueGrey],
+                  curviness: 0.4,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Brush Stroke Left'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: BrushStrokeTransition(
+                  direction: TransitionDirection.left,
+                  colors: const [
+                    Colors.indigo,
+                    Colors.purple,
+                    Colors.deepPurple,
+                  ],
+                  strokeWidth: 50.0,
+                  curviness: 0.2,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
