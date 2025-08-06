@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:animated_transitions/transition.dart';
+import 'package:animated_transitions/enums.dart';
 
 class ExpandingCirclesTransition extends Transition {
   final Color? color;
@@ -18,6 +19,7 @@ class ExpandingCirclesTransition extends Transition {
     this.colors,
     this.numberOfCircles = 25,
     super.duration = const Duration(milliseconds: 800),
+    super.exitMode = TransitionExitMode.fade,
   });
 
   @override
@@ -35,6 +37,8 @@ class _ExpandingCirclesTransitionState
   Size? _lastSize;
   final _random = Random();
   final List<Offset> _circleCenters = [];
+  bool _isExiting = false;
+  double _maxRadius = 0.0;
 
   @override
   void initState() {
@@ -46,17 +50,37 @@ class _ExpandingCirclesTransitionState
 
     _fadeController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 400),
+      duration: widget.exitMode == TransitionExitMode.fade
+          ? const Duration(milliseconds: 400)
+          : widget.duration,
     )..value = 1.0;
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onAnimationComplete();
-        _fadeController.reverse();
+        Future.delayed(const Duration(milliseconds: 100), () {
+          if (!mounted) return;
+          _isExiting = true;
+          if (widget.exitMode == TransitionExitMode.fade) {
+            _fadeController.reverse();
+          } else {
+            _setup(_lastSize!);
+            _controller.reset();
+            _controller.forward();
+          }
+        });
       }
     });
     _fadeController.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) widget.onTransitionEnd();
+      if (status == AnimationStatus.dismissed &&
+          widget.exitMode == TransitionExitMode.fade) {
+        widget.onTransitionEnd();
+      }
+    });
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && _isExiting) {
+        widget.onTransitionEnd();
+      }
     });
   }
 
@@ -89,11 +113,12 @@ class _ExpandingCirclesTransitionState
       }
     }
 
-    final maxRadius = maxDist;
+    _maxRadius = maxDist;
 
+    // For exit animations (except fade), circles should shrink
     _radiusAnimation = Tween<double>(
-      begin: 0,
-      end: maxRadius,
+      begin: _isExiting ? _maxRadius : 0,
+      end: _isExiting ? 0 : _maxRadius,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCirc));
 
     final List<Color> animationColors;
@@ -107,16 +132,32 @@ class _ExpandingCirclesTransitionState
     }
 
     final tweenItems = <TweenSequenceItem<Color?>>[];
-    for (var i = 0; i < animationColors.length - 1; i++) {
-      tweenItems.add(
-        TweenSequenceItem(
-          tween: ColorTween(
-            begin: animationColors[i],
-            end: animationColors[i + 1],
+
+    if (_isExiting && widget.exitMode != TransitionExitMode.fade) {
+      // Reverse the color sequence for exit animations
+      for (var i = animationColors.length - 1; i > 0; i--) {
+        tweenItems.add(
+          TweenSequenceItem(
+            tween: ColorTween(
+              begin: animationColors[i],
+              end: animationColors[i - 1],
+            ),
+            weight: 1,
           ),
-          weight: 1,
-        ),
-      );
+        );
+      }
+    } else {
+      for (var i = 0; i < animationColors.length - 1; i++) {
+        tweenItems.add(
+          TweenSequenceItem(
+            tween: ColorTween(
+              begin: animationColors[i],
+              end: animationColors[i + 1],
+            ),
+            weight: 1,
+          ),
+        );
+      }
     }
     _colorAnimation = TweenSequence<Color?>(tweenItems).animate(_controller);
   }
@@ -140,7 +181,8 @@ class _ExpandingCirclesTransitionState
       child: LayoutBuilder(
         builder: (context, constraints) {
           final size = Size(constraints.maxWidth, constraints.maxHeight);
-          if (_lastSize != size) {
+          if (_lastSize != size && !_isExiting) {
+            // Only setup on size change during entrance
             _lastSize = size;
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (mounted) {
