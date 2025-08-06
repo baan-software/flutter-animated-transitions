@@ -1,4 +1,5 @@
 // Export all transitions
+export 'transitions/clock_sweep_transition.dart';
 export 'transitions/expanding_circles_transition.dart';
 export 'transitions/growing_bars_transition.dart';
 export 'transitions/random_finish_bars_transition.dart';

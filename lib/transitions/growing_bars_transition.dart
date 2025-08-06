@@ -14,7 +14,7 @@ class GrowingBarsTransition extends Transition {
     this.direction = TransitionDirection.bottom,
     this.colors,
     super.duration = const Duration(milliseconds: 800),
-    super.exitMode = TransitionExitMode.fade,
+    super.exitMode = TransitionExitMode.sameDirection,
   });
 
   @override

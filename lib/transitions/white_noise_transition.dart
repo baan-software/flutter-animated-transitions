@@ -10,7 +10,7 @@ class WhiteNoiseTransition extends Transition {
   WhiteNoiseTransition({
     super.key,
     super.duration = const Duration(milliseconds: 700),
-    super.exitMode = TransitionExitMode.fade,
+    super.exitMode = TransitionExitMode.sameDirection,
     int pixelSize = 4,
   }) : pixelSize = pixelSize < 4 ? 4 : pixelSize;
 

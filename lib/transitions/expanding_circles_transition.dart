@@ -19,7 +19,7 @@ class ExpandingCirclesTransition extends Transition {
     this.colors,
     this.numberOfCircles = 25,
     super.duration = const Duration(milliseconds: 800),
-    super.exitMode = TransitionExitMode.fade,
+    super.exitMode = TransitionExitMode.sameDirection,
   });
 
   @override

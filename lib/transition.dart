@@ -12,7 +12,7 @@ abstract class Transition extends StatefulWidget {
   Transition({
     super.key,
     required this.duration,
-    this.exitMode = TransitionExitMode.fade,
+    this.exitMode = TransitionExitMode.sameDirection,
   });
 
   @override

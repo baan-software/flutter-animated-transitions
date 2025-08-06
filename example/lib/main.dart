@@ -22,13 +22,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(title: const Text('Flutter Animations Showcase')),
       body: ListView(
@@ -58,11 +56,9 @@ class HomeScreen extends StatelessWidget {
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: GrowingBarsTransition(
+                  duration: const Duration(milliseconds: 300),
                   direction: TransitionDirection.left,
-                  colors: const [
-                    Colors.blue,
-                    Colors.blueGrey,
-                  ],
+                  colors: const [Colors.blue, Colors.blueGrey],
                 ),
               ),
             ),
@@ -74,10 +70,7 @@ class HomeScreen extends StatelessWidget {
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
-                  colors: const [
-                    Colors.yellow,
-                    Colors.red,
-                  ],
+                  colors: const [Colors.yellow, Colors.red],
                 ),
               ),
             ),
@@ -90,9 +83,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
                   direction: TransitionDirection.right,
-                  colors: const [
-                    Colors.greenAccent
-                  ],
+                  colors: const [Colors.greenAccent],
                 ),
               ),
             ),
@@ -105,6 +96,19 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: RandomFinishBarsTransition(
                   direction: TransitionDirection.top,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('White Noise'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: WhiteNoiseTransition(
+                  duration: const Duration(milliseconds: 1000),
+                  pixelSize: 6,
                 ),
               ),
             ),
@@ -135,6 +139,8 @@ class HomeScreen extends StatelessWidget {
                     Colors.green,
                     Colors.yellow,
                   ],
+                  duration: const Duration(milliseconds: 1000),
+                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
@@ -177,21 +183,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Pixelated (Bottom to Top)'),
-            onTap: () => Navigator.push(
-              context,
-              TransitionPageRoute(
-                builder: (context) => const NextScreen(),
-                transitionAnimation: DirectionalPixelatedTransition(
-                  pixelDensity: 40,
-                  direction: TransitionDirection.bottom,
-                  colors: const [Colors.orange, Colors.deepOrange, Colors.red],
-                  exitMode: TransitionExitMode.reverse,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
             title: const Text('Pixelated (Left to Right)'),
             onTap: () => Navigator.push(
               context,
@@ -212,21 +203,21 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Pixelated (Right to Left)'),
+            title: const Text('Clock Sweep'),
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
-                transitionAnimation: DirectionalPixelatedTransition(
-                  pixelDensity: 40,
-                  direction: TransitionDirection.right,
+                transitionAnimation: ClockSweepTransition(
                   colors: const [
-                    Colors.blue,
                     Colors.red,
-                    Colors.green,
                     Colors.yellow,
+                    Colors.green,
+                    Colors.blue,
                   ],
-                  exitMode: TransitionExitMode.sameDirection,
+                  clockwise: true,
+                  duration: const Duration(milliseconds: 1200),
+                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
