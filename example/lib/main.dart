@@ -1,4 +1,5 @@
 import 'package:animated_transitions/animated_transitions.dart';
+import 'package:animated_transitions/transitions/crossing_bars_transition.dart';
 import 'package:animated_transitions_example/next_screen.dart';
 import 'package:animated_transitions_example/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -251,6 +252,23 @@ class HomeScreen extends StatelessWidget {
                   ],
                   strokeWidth: 50.0,
                   curviness: 0.2,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Crossing Bars'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: CrossingBarsTransition(
+                  direction: TransitionDirection.left,
+                  colors: const [
+                    Colors.black,
+                    Colors.white,
+                  ],
+                  barCount: 50,
                 ),
               ),
             ),

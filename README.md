@@ -44,6 +44,19 @@ Navigator.of(context).push(
 
 
 
+## Available Transitions
+
+- **GrowingBarsTransition** - Animated bars that grow from the specified direction
+- **CrossingBarsTransition** - Bars that expand from opposite sides, creating a criss-cross effect
+- **WaveBarsTransition** - Wave-like animation with bars moving in a wave pattern
+- **RandomFinishBarsTransition** - Bars that finish in random positions
+- **ExpandingCirclesTransition** - Circles that expand from the center
+- **DirectionalPixelatedTransition** - Pixelated effect that moves in a specific direction
+- **RandomPixelatedTransition** - Random pixelated transition effect
+- **BrushStrokeTransition** - Brush stroke animation effect
+- **ClockSweepTransition** - Clock-like sweeping animation
+- **WhiteNoiseTransition** - White noise/static effect transition
+
 ## Create your own
 
 Create your own transition by subclassing `Transition` widget

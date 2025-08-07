@@ -394,26 +394,6 @@ class SimpleBrushPainter extends CustomPainter {
     }
   }
 
-  Color _getAverageStrokeColor() {
-    if (brushStrokes.isEmpty) return Colors.black;
-
-    double r = 0, g = 0, b = 0, a = 0;
-    for (final stroke in brushStrokes) {
-      r += stroke.color.r;
-      g += stroke.color.g;
-      b += stroke.color.b;
-      a += stroke.opacity;
-    }
-
-    final count = brushStrokes.length;
-    return Color.fromARGB(
-      (255 * a / count).round(),
-      (r / count).round(),
-      (g / count).round(),
-      (b / count).round(),
-    );
-  }
-
   @override
   bool shouldRepaint(covariant SimpleBrushPainter oldDelegate) {
     return progress != oldDelegate.progress ||
