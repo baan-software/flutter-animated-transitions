@@ -48,6 +48,7 @@ Navigator.of(context).push(
 
 - **GrowingBarsTransition** - Animated bars that grow from the specified direction
 - **CrossingBarsTransition** - Bars that expand from opposite sides, creating a criss-cross effect
+- **TetrisTransition** - Squares that enter the screen and build on top of previous rows/columns, like Tetris
 - **WaveBarsTransition** - Wave-like animation with bars moving in a wave pattern
 - **RandomFinishBarsTransition** - Bars that finish in random positions
 - **ExpandingCirclesTransition** - Circles that expand from the center

@@ -1,7 +1,8 @@
 import 'package:animated_transitions/animated_transitions.dart';
-import 'package:animated_transitions/transitions/crossing_bars_transition.dart';
-import 'package:animated_transitions_example/next_screen.dart';
+import 'package:animated_transitions/transitions/brush_stroke_transition.dart';
+import 'package:animated_transitions/transitions/clock_sweep_transition.dart';
 import 'package:animated_transitions_example/app_theme.dart';
+import 'package:animated_transitions_example/next_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -269,6 +270,26 @@ class HomeScreen extends StatelessWidget {
                     Colors.white,
                   ],
                   barCount: 50,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Tetris Transition'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: TetrisTransition(
+                  direction: TransitionDirection.bottom,
+                  colors: const [
+                    Colors.blue,
+                    Colors.green,
+                    Colors.yellow,
+                    Colors.red,
+                  ],
+                  exitMode: TransitionExitMode.fade,
+                  squaresPerRow: 20,
                 ),
               ),
             ),

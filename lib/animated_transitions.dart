@@ -1,8 +1,8 @@
 // Export all transitions
-export 'transitions/brush_stroke_transition.dart';
-export 'transitions/clock_sweep_transition.dart';
 export 'transitions/expanding_circles_transition.dart';
 export 'transitions/growing_bars_transition.dart';
+export 'transitions/crossing_bars_transition.dart';
+export 'transitions/tetris_transition.dart';
 export 'transitions/random_finish_bars_transition.dart';
 export 'transitions/wave_bars_transition.dart';
 export 'transitions/pixelated_transition_base.dart';
