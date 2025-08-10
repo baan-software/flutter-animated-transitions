@@ -264,11 +264,23 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: CrossingBarsTransition(
                   direction: TransitionDirection.left,
-                  colors: const [
-                    Colors.black,
-                    Colors.white,
-                  ],
+                  colors: const [Colors.black, Colors.white],
                   barCount: 50,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('CRT / TV Shutoff'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: CrtShutoffTransition(
+                  color: Colors.black,
+                  lineColor: Colors.white,
+                  duration: const Duration(milliseconds: 900),
+                  exitMode: TransitionExitMode.sameDirection,
                 ),
               ),
             ),
