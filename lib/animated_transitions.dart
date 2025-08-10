@@ -9,6 +9,7 @@ export 'transitions/pixelated_transition_base.dart';
 export 'transitions/directional_pixelated_transition.dart';
 export 'transitions/random_pixelated_transition.dart';
 export 'transitions/white_noise_transition.dart';
+export 'transitions/particles_fountain_transition.dart';
 
 // Export main classes
 export 'enums.dart';

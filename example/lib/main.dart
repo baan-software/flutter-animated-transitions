@@ -32,6 +32,20 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
+            title: const Text('Particles Fountain (sameDirection)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: ParticlesFountainTransition(
+                  colors: const [Colors.cyan, Colors.indigo, Colors.pinkAccent],
+                  duration: const Duration(milliseconds: 1300),
+                  exitMode: TransitionExitMode.fade,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
             title: const Text('Growing Bars Top'),
             onTap: () => Navigator.push(
               context,
