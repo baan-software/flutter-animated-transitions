@@ -60,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 300),
                   direction: TransitionDirection.left,
                   colors: const [Colors.blue, Colors.blueGrey],
+                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
@@ -72,6 +73,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: WaveBarsTransition(
                   colors: const [Colors.yellow, Colors.red],
+                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
@@ -97,19 +99,6 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: RandomFinishBarsTransition(
                   direction: TransitionDirection.top,
-                ),
-              ),
-            ),
-          ),
-          ListTile(
-            title: const Text('White Noise'),
-            onTap: () => Navigator.push(
-              context,
-              TransitionPageRoute(
-                builder: (context) => const NextScreen(),
-                transitionAnimation: WhiteNoiseTransition(
-                  duration: const Duration(milliseconds: 1000),
-                  pixelSize: 6,
                 ),
               ),
             ),
@@ -166,19 +155,15 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Pixelated (Top to Bottom)'),
+            title: const Text('Pixelated (Bottom to Top)'),
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: DirectionalPixelatedTransition(
                   pixelDensity: 40,
-                  direction: TransitionDirection.top,
-                  colors: const [
-                    Colors.purple,
-                    Colors.deepPurple,
-                    Colors.indigo,
-                  ],
+                  direction: TransitionDirection.bottom,
+                  colors: [Colors.white, Colors.lightBlue.shade300],
                 ),
               ),
             ),
@@ -198,7 +183,6 @@ class HomeScreen extends StatelessWidget {
                     Colors.green,
                     Colors.yellow,
                   ],
-                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
@@ -210,12 +194,7 @@ class HomeScreen extends StatelessWidget {
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: ClockSweepTransition(
-                  colors: const [
-                    Colors.red,
-                    Colors.yellow,
-                    Colors.green,
-                    Colors.blue,
-                  ],
+                  colors: const [Colors.lightBlue, Colors.lime, Colors.yellow],
                   clockwise: true,
                   duration: const Duration(milliseconds: 1200),
                   exitMode: TransitionExitMode.reverse,
@@ -231,6 +210,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: BrushStrokeTransition(
                   direction: TransitionDirection.top,
+                  duration: const Duration(milliseconds: 1000),
                   colors: const [Colors.black87, Colors.grey, Colors.blueGrey],
                   curviness: 0.4,
                 ),
@@ -245,9 +225,14 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) => const NextScreen(),
                 transitionAnimation: BrushStrokeTransition(
                   direction: TransitionDirection.left,
+                  duration: const Duration(milliseconds: 1000),
                   colors: const [
+                    Colors.red,
+                    Colors.orange,
+                    Colors.yellow,
+                    Colors.green,
+                    Colors.blue,
                     Colors.indigo,
-                    Colors.purple,
                     Colors.deepPurple,
                   ],
                   strokeWidth: 50.0,
@@ -281,6 +266,19 @@ class HomeScreen extends StatelessWidget {
                   lineColor: Colors.white,
                   duration: const Duration(milliseconds: 900),
                   exitMode: TransitionExitMode.sameDirection,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('White Noise'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: WhiteNoiseTransition(
+                  duration: const Duration(milliseconds: 1000),
+                  pixelSize: 6,
                 ),
               ),
             ),
