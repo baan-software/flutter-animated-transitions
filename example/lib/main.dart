@@ -1,5 +1,4 @@
 import 'package:animated_transitions/animated_transitions.dart';
-import 'package:animated_transitions/transitions/crossing_bars_transition.dart';
 import 'package:animated_transitions_example/next_screen.dart';
 import 'package:animated_transitions_example/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -279,6 +278,89 @@ class HomeScreen extends StatelessWidget {
                 transitionAnimation: WhiteNoiseTransition(
                   duration: const Duration(milliseconds: 1000),
                   pixelSize: 6,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Spiral Transition'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: SpiralTransition(
+                  duration: const Duration(milliseconds: 1000),
+                  colors: const [
+                    Colors.deepPurple,
+                    Colors.purple,
+                    Colors.pinkAccent,
+                    Colors.pink,
+                  ],
+                  spiralTurns: 3,
+                  clockwise: false,
+                  exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Hexagon Grid Top (Flip)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: HexagonGridTransition(
+                  direction: TransitionDirection.bottom,
+                  colors: const [
+                    Colors.teal,
+                    Colors.cyan,
+                    Colors.lightBlue,
+                    Colors.blue,
+                  ],
+                  hexagonSize: 20.0,
+                  useFlipAnimation: true,
+                  exitMode: TransitionExitMode.sameDirection,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Hexagon Grid Left (Slide)'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: HexagonGridTransition(
+                  direction: TransitionDirection.left,
+                  colors: const [
+                    Colors.orange,
+                    Colors.deepOrange,
+                    Colors.red,
+                    Colors.redAccent,
+                  ],
+                  hexagonSize: 30.0,
+                  useFlipAnimation: false,
+                  exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Random Hexagon Grid'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: RandomHexagonGridTransition(
+                  colors: const [
+                    Colors.orange,
+                    Colors.deepOrange,
+                    Colors.red,
+                    Colors.redAccent,
+                  ],
+                  hexagonSize: 20.0,
+                  useFlipAnimation: false,
+                  exitMode: TransitionExitMode.reverse,
                 ),
               ),
             ),
