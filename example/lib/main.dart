@@ -328,7 +328,7 @@ class HomeScreen extends StatelessWidget {
               context,
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
-                transitionAnimation: HexagonGridTransition(
+                transitionAnimation: DirectionalHexagonGridTransition(
                   direction: TransitionDirection.bottom,
                   colors: const [
                     Colors.teal,
@@ -348,7 +348,7 @@ class HomeScreen extends StatelessWidget {
               context,
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
-                transitionAnimation: HexagonGridTransition(
+                transitionAnimation: DirectionalHexagonGridTransition(
                   direction: TransitionDirection.left,
                   colors: const [
                     Colors.orange,
