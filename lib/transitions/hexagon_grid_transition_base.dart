@@ -9,14 +9,12 @@ abstract class HexagonGridTransitionBase extends Transition {
   final Color? color;
   final List<Color>? colors;
   final double hexagonSize;
-  final bool useFlipAnimation; // true for flip, false for slide
 
   HexagonGridTransitionBase({
     super.key,
     this.color = Colors.deepPurple,
     this.colors,
     this.hexagonSize = 40.0,
-    this.useFlipAnimation = true,
     super.duration = const Duration(milliseconds: 1000),
     super.exitMode = TransitionExitMode.reverse,
   });
@@ -169,7 +167,6 @@ class _HexagonGridTransitionBaseState
                   hexagons: _hexagons,
                   progress: progress,
                   isReverseExit: isReverseExit,
-                  useFlipAnimation: widget.useFlipAnimation,
                 ),
                 size: size,
               );
@@ -199,13 +196,11 @@ class HexagonGridPainter extends CustomPainter {
   final List<_HexagonTile> hexagons;
   final double progress;
   final bool isReverseExit;
-  final bool useFlipAnimation;
 
   HexagonGridPainter({
     required this.hexagons,
     required this.progress,
     required this.isReverseExit,
-    required this.useFlipAnimation,
   });
 
   @override
@@ -229,19 +224,10 @@ class HexagonGridPainter extends CustomPainter {
     canvas.save();
     canvas.translate(hexagon.center.dx, hexagon.center.dy);
 
-    if (useFlipAnimation) {
-      final flipProgress = adjustedProgress;
-      final scale = sin(flipProgress * pi / 2);
-      final rotation = flipProgress * pi / 4;
-
-      canvas.scale(scale, scale);
-      canvas.rotate(rotation);
-    } else {
-      final slideProgress = Curves.easeOutCubic.transform(adjustedProgress);
-      final slideDistance = hexagon.size * 2;
-      final slideOffset = (1.0 - slideProgress) * slideDistance;
-      canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
-    }
+    final slideProgress = Curves.easeOutCubic.transform(adjustedProgress);
+    final slideDistance = hexagon.size * 2;
+    final slideOffset = (1.0 - slideProgress) * slideDistance;
+    canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
 
     final path = _createHexagonPath(hexagon.size);
     canvas.drawPath(path, paint);

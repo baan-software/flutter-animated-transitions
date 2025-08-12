@@ -11,7 +11,6 @@ class RandomHexagonGridTransition extends HexagonGridTransitionBase {
     super.color,
     super.colors,
     super.hexagonSize,
-    super.useFlipAnimation,
     super.duration,
     super.exitMode,
   });

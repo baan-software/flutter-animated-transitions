@@ -12,7 +12,6 @@ class HexagonGridTransition extends Transition {
   final List<Color>? colors;
   final TransitionDirection direction;
   final double hexagonSize;
-  final bool useFlipAnimation; // true for flip, false for slide
 
   HexagonGridTransition({
     super.key,
@@ -20,7 +19,6 @@ class HexagonGridTransition extends Transition {
     this.colors,
     this.direction = TransitionDirection.bottom,
     this.hexagonSize = 40.0,
-    this.useFlipAnimation = true,
     super.duration = const Duration(milliseconds: 500),
     super.exitMode = TransitionExitMode.reverse,
   });
@@ -203,7 +201,6 @@ class _HexagonGridTransitionState extends TransitionState<HexagonGridTransition>
                   progress: progress,
                   isReverseExit: isReverseExit,
                   isSameDirectionExit: isSameDirectionExit,
-                  useFlipAnimation: widget.useFlipAnimation,
                 ),
                 size: size,
               );
@@ -234,14 +231,12 @@ class HexagonGridPainter extends CustomPainter {
   final double progress;
   final bool isReverseExit;
   final bool isSameDirectionExit;
-  final bool useFlipAnimation;
 
   HexagonGridPainter({
     required this.hexagons,
     required this.progress,
     required this.isReverseExit,
     required this.isSameDirectionExit,
-    required this.useFlipAnimation,
   });
 
   @override
@@ -275,23 +270,13 @@ class HexagonGridPainter extends CustomPainter {
     canvas.save();
     canvas.translate(hexagon.center.dx, hexagon.center.dy);
 
-    if (useFlipAnimation) {
-      // Flip animation - scale and rotate
-      final flipProgress = adjustedProgress;
-      final scale = sin(flipProgress * pi / 2);
-      final rotation = flipProgress * pi / 4;
+    // Slide animation - slide in from direction
+    final slideProgress = Curves.easeOutCubic.transform(adjustedProgress);
+    final slideDistance = hexagon.size * 2;
 
-      canvas.scale(scale, scale);
-      canvas.rotate(rotation);
-    } else {
-      // Slide animation - slide in from direction
-      final slideProgress = Curves.easeOutCubic.transform(adjustedProgress);
-      final slideDistance = hexagon.size * 2;
-
-      // Note: Direction is handled by delay calculation, so we slide from center
-      final slideOffset = (1.0 - slideProgress) * slideDistance;
-      canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
-    }
+    // Note: Direction is handled by delay calculation, so we slide from center
+    final slideOffset = (1.0 - slideProgress) * slideDistance;
+    canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
 
     // Draw hexagon
     final path = _createHexagonPath(hexagon.size);

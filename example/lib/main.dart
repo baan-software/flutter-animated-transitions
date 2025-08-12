@@ -323,7 +323,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Hexagon Grid Top (Flip)'),
+            title: const Text('Hexagon Grid Top'),
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
@@ -337,14 +337,13 @@ class HomeScreen extends StatelessWidget {
                     Colors.blue,
                   ],
                   hexagonSize: 20.0,
-                  useFlipAnimation: true,
                   exitMode: TransitionExitMode.sameDirection,
                 ),
               ),
             ),
           ),
           ListTile(
-            title: const Text('Hexagon Grid Left (Slide)'),
+            title: const Text('Hexagon Grid Left'),
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
@@ -358,7 +357,6 @@ class HomeScreen extends StatelessWidget {
                     Colors.redAccent,
                   ],
                   hexagonSize: 30.0,
-                  useFlipAnimation: false,
                   exitMode: TransitionExitMode.sameDirection,
                 ),
               ),
@@ -378,7 +376,6 @@ class HomeScreen extends StatelessWidget {
                     Colors.redAccent,
                   ],
                   hexagonSize: 20.0,
-                  useFlipAnimation: true,
                   exitMode: TransitionExitMode.reverse,
                 ),
               ),
