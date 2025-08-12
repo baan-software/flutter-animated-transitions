@@ -33,7 +33,7 @@ class _HexagonGridTransitionBaseState
   late AnimationController _controller;
   late AnimationController _fadeController;
   Animation<double>? _animation;
-  List<_HexagonTile> _hexagons = [];
+  final List<_HexagonTile> _hexagons = [];
   Size? _lastSize;
   bool _isExiting = false;
 
@@ -158,15 +158,12 @@ class _HexagonGridTransitionBaseState
             builder: (context, child) {
               final double progress = _animation?.value ?? 0.0;
 
-              final bool isReverseExit = _isExiting &&
-                  (widget.exitMode == TransitionExitMode.reverse ||
-                      widget.exitMode == TransitionExitMode.sameDirection);
-
               return CustomPaint(
                 painter: HexagonGridPainter(
                   hexagons: _hexagons,
                   progress: progress,
-                  isReverseExit: isReverseExit,
+                  isExiting: _isExiting,
+                  exitMode: widget.exitMode,
                 ),
                 size: size,
               );
@@ -195,12 +192,14 @@ class _HexagonTile {
 class HexagonGridPainter extends CustomPainter {
   final List<_HexagonTile> hexagons;
   final double progress;
-  final bool isReverseExit;
+  final bool isExiting;
+  final TransitionExitMode exitMode;
 
   HexagonGridPainter({
     required this.hexagons,
     required this.progress,
-    required this.isReverseExit,
+    required this.isExiting,
+    required this.exitMode,
   });
 
   @override
@@ -227,7 +226,14 @@ class HexagonGridPainter extends CustomPainter {
     final slideProgress = Curves.easeOutCubic.transform(adjustedProgress);
     final slideDistance = hexagon.size * 2;
     final slideOffset = (1.0 - slideProgress) * slideDistance;
-    canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
+
+    if (isExiting && exitMode == TransitionExitMode.sameDirection) {
+      // For same direction exit, slide in the opposite direction
+      canvas.translate(slideOffset * 0.5, slideOffset * 0.5);
+    } else {
+      // Normal entrance or reverse exit
+      canvas.translate(-slideOffset * 0.5, -slideOffset * 0.5);
+    }
 
     final path = _createHexagonPath(hexagon.size);
     canvas.drawPath(path, paint);
@@ -260,7 +266,8 @@ class HexagonGridPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant HexagonGridPainter oldDelegate) {
     return progress != oldDelegate.progress ||
-        isReverseExit != oldDelegate.isReverseExit ||
+        isExiting != oldDelegate.isExiting ||
+        exitMode != oldDelegate.exitMode ||
         hexagons != oldDelegate.hexagons;
   }
 }

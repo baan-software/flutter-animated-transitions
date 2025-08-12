@@ -376,7 +376,7 @@ class HomeScreen extends StatelessWidget {
                     Colors.redAccent,
                   ],
                   hexagonSize: 20.0,
-                  exitMode: TransitionExitMode.reverse,
+                  exitMode: TransitionExitMode.sameDirection,
                 ),
               ),
             ),

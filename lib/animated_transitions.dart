@@ -13,7 +13,6 @@ export 'transitions/crt_shutoff_transition.dart';
 export 'transitions/crossing_bars_transition.dart';
 export 'transitions/hexagon_grid_transition.dart';
 export 'transitions/spiral_transition.dart';
-export 'transitions/directional_hexagon_grid_transition.dart';
 export 'transitions/random_hexagon_grid_transition.dart';
 export 'transitions/sunburst_transition.dart';
 
