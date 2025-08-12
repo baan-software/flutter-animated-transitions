@@ -21,7 +21,7 @@ class HexagonGridTransition extends Transition {
     this.direction = TransitionDirection.bottom,
     this.hexagonSize = 40.0,
     this.useFlipAnimation = true,
-    super.duration = const Duration(milliseconds: 1000),
+    super.duration = const Duration(milliseconds: 500),
     super.exitMode = TransitionExitMode.reverse,
   });
 
@@ -34,7 +34,7 @@ class _HexagonGridTransitionState extends TransitionState<HexagonGridTransition>
   late AnimationController _controller;
   late AnimationController _fadeController;
   Animation<double>? _animation;
-  List<HexagonTile> _hexagons = [];
+  final List<HexagonTile> _hexagons = [];
   Size? _lastSize;
   bool _isExiting = false;
 

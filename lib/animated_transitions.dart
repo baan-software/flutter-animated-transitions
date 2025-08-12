@@ -15,6 +15,7 @@ export 'transitions/hexagon_grid_transition.dart';
 export 'transitions/spiral_transition.dart';
 export 'transitions/directional_hexagon_grid_transition.dart';
 export 'transitions/random_hexagon_grid_transition.dart';
+export 'transitions/sunburst_transition.dart';
 
 // Export main classes
 export 'enums.dart';

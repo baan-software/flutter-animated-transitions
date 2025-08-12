@@ -340,7 +340,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                   hexagonSize: 30.0,
                   useFlipAnimation: false,
-                  exitMode: TransitionExitMode.reverse,
+                  exitMode: TransitionExitMode.sameDirection,
                 ),
               ),
             ),
@@ -359,8 +359,26 @@ class HomeScreen extends StatelessWidget {
                     Colors.redAccent,
                   ],
                   hexagonSize: 20.0,
-                  useFlipAnimation: false,
+                  useFlipAnimation: true,
                   exitMode: TransitionExitMode.reverse,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Sunburst Transition'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: SunburstTransition(
+                  colors: const [
+                    Colors.yellow,
+                    Colors.red,
+                    Colors.yellow,
+                    Colors.white,
+                  ],
+                  duration: const Duration(milliseconds: 800),
                 ),
               ),
             ),
