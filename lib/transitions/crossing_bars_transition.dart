@@ -40,12 +40,18 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
 
   // Get the effective direction for the current animation phase
   TransitionDirection get _effectiveDirection {
-    final effectiveDir =
-        (!_isExiting || widget.exitMode == TransitionExitMode.reverse)
-            ? widget.direction
-            : _getOppositeDirection(widget.direction);
-
-    return effectiveDir;
+    if (!_isExiting) {
+      return widget.direction;
+    }
+    
+    switch (widget.exitMode) {
+      case TransitionExitMode.reverse:
+        return _getOppositeDirection(widget.direction);
+      case TransitionExitMode.sameDirection:
+        return widget.direction; // Keep same direction
+      case TransitionExitMode.fade:
+        return widget.direction; // Not used for fade
+    }
   }
 
   // Get direction for each bar (alternating)
@@ -300,31 +306,91 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                       // Horizontal bars expanding from sides
                       if (barDirection == TransitionDirection.left) {
                         // Expand from left to right
-                        left = 0;
-                        top = index * barThickness;
-                        width = barLength * size;
-                        height = barThickness;
+                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                          // For sameDirection exit, shrink from left to right
+                          left = barLength * (1 - size);
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                          // For reverse exit, shrink from right to left (opposite direction)
+                          left = barLength * (1 - size);
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        } else {
+                          // Normal entrance
+                          left = 0;
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        }
                       } else {
                         // Expand from right to left
-                        left = barLength * (1 - size);
-                        top = index * barThickness;
-                        width = barLength * size;
-                        height = barThickness;
+                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                          // For sameDirection exit, shrink from right to left
+                          left = 0;
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                          // For reverse exit, shrink from left to right (opposite direction)
+                          left = 0;
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        } else {
+                          // Normal entrance or reverse exit
+                          left = barLength * (1 - size);
+                          top = index * barThickness;
+                          width = barLength * size;
+                          height = barThickness;
+                        }
                       }
                     } else {
                       // Vertical bars expanding from top/bottom
                       if (barDirection == TransitionDirection.top) {
                         // Expand from top to bottom
-                        left = index * barThickness;
-                        top = 0;
-                        width = barThickness;
-                        height = barLength * size;
+                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                          // For sameDirection exit, shrink from top to bottom
+                          left = index * barThickness;
+                          top = 0;
+                          width = barThickness;
+                          height = barLength * size;
+                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                          // For reverse exit, shrink from bottom to top (opposite direction)
+                          left = index * barThickness;
+                          top = 0;
+                          width = barThickness;
+                          height = barLength * size;
+                        } else {
+                          // Normal entrance
+                          left = index * barThickness;
+                          top = 0;
+                          width = barThickness;
+                          height = barLength * size;
+                        }
                       } else {
                         // Expand from bottom to top
-                        left = index * barThickness;
-                        top = barLength * (1 - size);
-                        width = barThickness;
-                        height = barLength * size;
+                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                          // For sameDirection exit, shrink from bottom to top
+                          left = index * barThickness;
+                          top = barLength * (1 - size);
+                          width = barThickness;
+                          height = barLength * size;
+                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                          // For reverse exit, shrink from top to bottom (opposite direction)
+                          left = index * barThickness;
+                          top = barLength * (1 - size);
+                          width = barThickness;
+                          height = barLength * size;
+                        } else {
+                          // Normal entrance
+                          left = index * barThickness;
+                          top = barLength * (1 - size);
+                          width = barThickness;
+                          height = barLength * size;
+                        }
                       }
                     }
                     

@@ -241,14 +241,33 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: const Text('Crossing Bars'),
+            title: const Text('Crossing Bars Left'),
             onTap: () => Navigator.push(
               context,
               TransitionPageRoute(
                 builder: (context) => const NextScreen(),
                 transitionAnimation: CrossingBarsTransition(
                   direction: TransitionDirection.left,
-                  colors: const [Colors.black, Colors.white],
+                  colors: const [Colors.black, Colors.black],
+                  barCount: 50,
+                ),
+              ),
+            ),
+          ),
+          ListTile(
+            title: const Text('Crossing Bars Top'),
+            onTap: () => Navigator.push(
+              context,
+              TransitionPageRoute(
+                builder: (context) => const NextScreen(),
+                transitionAnimation: CrossingBarsTransition(
+                  direction: TransitionDirection.top,
+                  colors: const [
+                    Colors.deepPurple,
+                    Colors.purple,
+                    Colors.pinkAccent,
+                    Colors.pink,
+                  ],
                   barCount: 50,
                 ),
               ),
