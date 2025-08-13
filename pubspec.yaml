@@ -1,6 +1,6 @@
 name: animated_transitions
 description: "A collection of beautiful transitions to navigate between pages in a Flutter app."
-version: 1.0.7
+version: 1.0.8
 homepage: https://www.baansoftware.com
 repository: https://github.com/baan-software/flutter-animated-transitions
 

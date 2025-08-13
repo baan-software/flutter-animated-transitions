@@ -15,7 +15,8 @@ class SunburstTransition extends Transition {
     super.exitMode = TransitionExitMode.fade,
   }) {
     if (exitMode == TransitionExitMode.sameDirection) {
-      debugPrint('Same direction exit mode is not supported for SunburstTransition');
+      debugPrint(
+          'Same direction exit mode is not supported for SunburstTransition');
     }
   }
 
@@ -90,7 +91,7 @@ class SunburstTransitionState extends TransitionState<SunburstTransition>
       (index) {
         final start = 0.0;
         final end = 1.0;
-        
+
         final begin = _isExiting ? maxDistance : 0.0;
         final endSize = _isExiting ? 0.0 : maxDistance;
         final curve = _isExiting ? Curves.easeIn : Curves.easeOut;
@@ -211,7 +212,7 @@ class SunburstTransitionState extends TransitionState<SunburstTransition>
           final centerX = constraints.maxWidth / 2;
           final centerY = constraints.maxHeight / 2;
           final rayCount = 24; // Increased to 24 rays for better coverage
-          
+
           // Calculate the maximum distance from center to any corner
           final maxDistance = sqrt(centerX * centerX + centerY * centerY);
 
@@ -222,19 +223,22 @@ class SunburstTransitionState extends TransitionState<SunburstTransition>
               children: List.generate(rayCount, (index) {
                 // Calculate angle for each bar (evenly distributed in 360 degrees)
                 final angle = (2 * pi * index) / rayCount;
-                
+
                 return AnimatedBuilder(
                   animation: _controller,
                   builder: (context, child) {
                     final progress = _sizeAnimations[index].value;
                     final currentSize = maxDistance * (progress / maxDistance);
-                    
+
                     // Non-linear width expansion: slow start, fast end for complete coverage
                     final progressRatio = progress / maxDistance;
-                    final widthFactor = progressRatio * progressRatio * 0.3; // Quadratic growth for acceleration
+                    final widthFactor = progressRatio *
+                        progressRatio *
+                        0.3; // Quadratic growth for acceleration
                     final barWidth = 1.0 + (currentSize * widthFactor);
-                    final barHeight = currentSize * 2.0; // Keep 100% extension for coverage
-                    
+                    final barHeight =
+                        currentSize * 2.0; // Keep 100% extension for coverage
+
                     return Positioned(
                       left: centerX - barWidth / 2,
                       top: centerY - barHeight / 2,
@@ -257,4 +261,4 @@ class SunburstTransitionState extends TransitionState<SunburstTransition>
       ),
     );
   }
-} 
+}

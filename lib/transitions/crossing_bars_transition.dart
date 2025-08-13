@@ -23,7 +23,8 @@ class CrossingBarsTransition extends Transition {
   State<CrossingBarsTransition> createState() => CrossingBarsTransitionState();
 }
 
-class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition>
+class CrossingBarsTransitionState
+    extends TransitionState<CrossingBarsTransition>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late AnimationController _fadeController;
@@ -43,7 +44,7 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
     if (!_isExiting) {
       return widget.direction;
     }
-    
+
     switch (widget.exitMode) {
       case TransitionExitMode.reverse:
         return _getOppositeDirection(widget.direction);
@@ -58,7 +59,7 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
   TransitionDirection _getBarDirection(int barIndex) {
     final baseDirection = _effectiveDirection;
     final isEvenBar = barIndex % 2 == 0;
-    
+
     if (isEvenBar) {
       return baseDirection;
     } else {
@@ -152,11 +153,11 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
         final start = 0.0;
         final end = durations[index] / totalDuration;
         final barDirection = _getBarDirection(index);
-        
+
         // Calculate start and end sizes based on direction
         double startSize;
         double endSize;
-        
+
         if (_isHorizontal) {
           // Horizontal bars (left/right direction)
           if (barDirection == TransitionDirection.left) {
@@ -285,8 +286,11 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
             return const Center(child: CircularProgressIndicator());
           }
 
-          final double barThickness = (_isHorizontal ? constraints.maxHeight : constraints.maxWidth) / widget.barCount;
-          final double barLength = _isHorizontal ? constraints.maxWidth : constraints.maxHeight;
+          final double barThickness =
+              (_isHorizontal ? constraints.maxHeight : constraints.maxWidth) /
+                  widget.barCount;
+          final double barLength =
+              _isHorizontal ? constraints.maxWidth : constraints.maxHeight;
 
           return SizedBox(
             width: constraints.maxWidth,
@@ -298,21 +302,24 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                   builder: (context, child) {
                     final size = _sizeAnimations[index].value;
                     final barDirection = _getBarDirection(index);
-                    
+
                     // Calculate position and size based on direction
                     double left, top, width, height;
-                    
+
                     if (_isHorizontal) {
                       // Horizontal bars expanding from sides
                       if (barDirection == TransitionDirection.left) {
                         // Expand from left to right
-                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                        if (_isExiting &&
+                            widget.exitMode ==
+                                TransitionExitMode.sameDirection) {
                           // For sameDirection exit, shrink from left to right
                           left = barLength * (1 - size);
                           top = index * barThickness;
                           width = barLength * size;
                           height = barThickness;
-                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                        } else if (_isExiting &&
+                            widget.exitMode == TransitionExitMode.reverse) {
                           // For reverse exit, shrink from right to left (opposite direction)
                           left = barLength * (1 - size);
                           top = index * barThickness;
@@ -327,13 +334,16 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                         }
                       } else {
                         // Expand from right to left
-                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                        if (_isExiting &&
+                            widget.exitMode ==
+                                TransitionExitMode.sameDirection) {
                           // For sameDirection exit, shrink from right to left
                           left = 0;
                           top = index * barThickness;
                           width = barLength * size;
                           height = barThickness;
-                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                        } else if (_isExiting &&
+                            widget.exitMode == TransitionExitMode.reverse) {
                           // For reverse exit, shrink from left to right (opposite direction)
                           left = 0;
                           top = index * barThickness;
@@ -351,13 +361,16 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                       // Vertical bars expanding from top/bottom
                       if (barDirection == TransitionDirection.top) {
                         // Expand from top to bottom
-                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                        if (_isExiting &&
+                            widget.exitMode ==
+                                TransitionExitMode.sameDirection) {
                           // For sameDirection exit, shrink from top to bottom
                           left = index * barThickness;
                           top = 0;
                           width = barThickness;
                           height = barLength * size;
-                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                        } else if (_isExiting &&
+                            widget.exitMode == TransitionExitMode.reverse) {
                           // For reverse exit, shrink from bottom to top (opposite direction)
                           left = index * barThickness;
                           top = 0;
@@ -372,13 +385,16 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                         }
                       } else {
                         // Expand from bottom to top
-                        if (_isExiting && widget.exitMode == TransitionExitMode.sameDirection) {
+                        if (_isExiting &&
+                            widget.exitMode ==
+                                TransitionExitMode.sameDirection) {
                           // For sameDirection exit, shrink from bottom to top
                           left = index * barThickness;
                           top = barLength * (1 - size);
                           width = barThickness;
                           height = barLength * size;
-                        } else if (_isExiting && widget.exitMode == TransitionExitMode.reverse) {
+                        } else if (_isExiting &&
+                            widget.exitMode == TransitionExitMode.reverse) {
                           // For reverse exit, shrink from top to bottom (opposite direction)
                           left = index * barThickness;
                           top = barLength * (1 - size);
@@ -393,7 +409,7 @@ class CrossingBarsTransitionState extends TransitionState<CrossingBarsTransition
                         }
                       }
                     }
-                    
+
                     return Positioned(
                       left: left,
                       top: top,
