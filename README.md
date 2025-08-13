@@ -11,17 +11,43 @@ A Flutter package providing a collection of beautiful and smooth transitions for
 
 ## Showcase
 <p>
-<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/bars_left.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/growing_bars_left.gif" alt="Horizontal Growing Bars" width="222" height="480" loop=infinite>
 
-<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/bars_top.gif" alt="Vertical Growing Bars" width="222" height="480" loop=infinite>
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/growing_bars_top.gif" alt="Vertical Growing Bars" width="222" height="480" loop=infinite>
 
-<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/random_finish_top.gif" alt="Horizontal Random Finish" width="222" height="480" loop=infinite>
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/randrom_finish_top.gif" alt="Horizontal Random Finish" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/random_finish_left.gif" alt="Vertical Random Finish" width="222" height="480" loop=infinite>
 
 <img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/pixels_random_in_out.gif" alt="Random Pixelated" width="222" height="480" loop=infinite>
 
 <img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/pixels_top.gif" alt="Vertical Pixels" width="222" height="480" loop=infinite>
 
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/pixels_bottom.gif" alt="Horizontal Pixels" width="222" height="480" loop=infinite>
+
 <img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/wave_bottom.gif" alt="Vertical Wave" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/cross_top.gif" alt="Cross Top" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/cross_left.gif" alt="Cross Left" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/expanding_circles.gif" alt="Expanding Circles" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/brush_top.gif" alt="Brush Top" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/brush_left.gif" alt="Brush Left" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/clock.gif" alt="Clock Sweep" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/white_noise.gif" alt="White Noise" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/sun.gif" alt="Sunburst" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/tv.gif" alt="CRT Shutoff" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/hex_left.gif" alt="Hexagon Left" width="222" height="480" loop=infinite>
+
+<img src="https://raw.githubusercontent.com/giora-baan/flutter-animated-transitions/main/example/demo_gifs/hex_random.gif" alt="Hexagon Random" width="222" height="480" loop=infinite>
 </p>
 
 ## Usage
